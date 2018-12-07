@@ -1,0 +1,17 @@
+from flask import Blueprint
+
+dashboard_bp = Blueprint('dashboard', __name__)
+
+from . import dashboard
+
+errors_bp = Blueprint('errors', __name__)
+
+from . import errors
+
+upload_bp = Blueprint('upload', __name__)
+
+from . import upload
+
+marketing_bp = Blueprint('marketing', __name__)
+
+from . import marketing

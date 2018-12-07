@@ -1,0 +1,53 @@
+{% include 'layouts/backend/common/header.html' %}
+
+    <body>
+
+        {% include 'layouts/backend/common/navbar.html' %}
+
+        <div class="wrapper">
+            <div class="container-fluid">
+              <nav class="col-md-2 d-none bg-light sidebar">
+                <div class="sidebar-sticky">
+                  {% if deal is defined %}
+                    {% include 'deals/layouts/sidebar.html' %}
+                  {% endif %}
+                </div>
+              </nav>
+
+              <div class="col-md-9 ml-sm-auto col-lg-10">
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <div class="btn-group pull-right">
+                            </div>
+                            {% if title is defined %}
+                              <h4 class="page-title">{{ title }}</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title end breadcrumb -->
+
+
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+            </div> <!-- end container -->
+        </div>
+        <!-- end wrapper -->
+
+        <!-- jQuery  -->
+        <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/popper.min.js') }}"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->
+        <script src="{{ url_for('static', filename='backend/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/waves.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.slimscroll.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.scrollTo.min.js') }}"></script>
+
+        <!-- App js -->
+        <script src="{{ url_for('static', filename='backend/js/jquery.core.js') }}"></script>
+        <script src="{{ url_for('static', filename='backend/js/jquery.app.js') }}"></script>
+
+    </body>
+</html>

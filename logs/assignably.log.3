@@ -1,0 +1,110 @@
+2018-09-06 10:08:30,585 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:08:35,893 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:09:01,059 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:09:24,283 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:09:32,506 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:31:53,958 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:35:58,211 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:37:00,434 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:37:41,396 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 10:42:24,228 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:09:54,199 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:10:31,472 ERROR: Exception on /register [POST] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/decorators.py", line 230, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/views.py", line 118, in register
+    user = register_user(**form.to_dict())
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/registerable.py", line 30, in register_user
+    _datastore.commit()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/datastore.py", line 31, in commit
+    self.db.session.commit()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 153, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 943, in commit
+    self.transaction.commit()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 467, in commit
+    self._prepare_impl()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 447, in _prepare_impl
+    self.session.flush()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2254, in flush
+    self._flush(objects)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2380, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2344, in _flush
+    flush_context.execute()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 386, in execute
+    n.execute_aggregate(self, set_)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 668, in execute_aggregate
+    uow)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 866, in _emit_insert_statements
+    execute(statement, params)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 948, in execute
+    return meth(self, multiparams, params)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1200, in _execute_context
+    context)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
+    exc_info
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
+    context)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 509, in do_execute
+    cursor.execute(statement, parameters)
+OperationalError: (sqlite3.OperationalError) table contact has no column named user_id [SQL: u'INSERT INTO contact (user_id, active, first_name, last_name, contact_type, phone, email, referral_source, investment_strategy, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'] [parameters: (None, 1, None, None, 'contact', None, None, None, None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)
+2018-09-06 13:10:53,685 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:11:03,859 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:11:15,427 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:11:23,757 ERROR: Exception on /register [POST] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/decorators.py", line 230, in wrapper
+    return f(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/views.py", line 118, in register
+    user = register_user(**form.to_dict())
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/registerable.py", line 41, in register_user
+    'welcome', user=user, confirmation_link=confirmation_link)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_security/utils.py", line 401, in send_mail
+    mail.send(msg)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_mail.py", line 152, in __exit__
+    self.host.quit()
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 767, in quit
+    res = self.docmd("quit")
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 393, in docmd
+    self.putcmd(cmd, args)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 341, in putcmd
+    self.send(str)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 333, in send
+    raise SMTPServerDisconnected('please run connect() first')
+SMTPServerDisconnected: please run connect() first
+2018-09-06 13:13:39,988 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:19:01,165 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]

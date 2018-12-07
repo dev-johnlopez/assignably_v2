@@ -1,0 +1,25 @@
+{% macro render_field_with_errors(field) %}
+
+  <div class="form-group row">
+    <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>
+    <div class="col-9">
+      {% if field.type == 'RadioField' %}
+        {% for subfield in field %}
+        <div class="{% if field.inline is defined %}form-check form-check-inline{% else %}radio radio-primary{% endif %}">
+          {{ subfield }}
+          {{ subfield.label }}
+        </div>
+        {% endfor %}
+      {% else %}
+        {{ field(**kwargs)|safe }}
+      {% endif %}
+      {% if field.errors %}
+        {% for error in field.errors %}
+        <div class="invalid-feedback d-block">
+          {{ error }}
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}

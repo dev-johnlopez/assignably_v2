@@ -1,0 +1,107 @@
+2018-09-06 13:19:19,543 ERROR: Exception on /crm/2/criteria/create [POST] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/crm/routes.py", line 92, in add_criteria
+    if form.validate_on_submit():
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_wtf/form.py", line 101, in validate_on_submit
+    return self.is_submitted() and self.validate()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/wtforms/form.py", line 310, in validate
+    return super(Form, self).validate(extra)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/wtforms/form.py", line 152, in validate
+    if not field.validate(self, extra):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/wtforms/fields/core.py", line 941, in validate
+    if not subfield.validate(form):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/wtforms/fields/core.py", line 823, in validate
+    return self.form.validate()
+  File "/Users/johnlopez/projects/assignably/app/crm/forms.py", line 45, in validate
+    rv = Form.validate(self)
+NameError: global name 'Form' is not defined
+2018-09-06 13:20:09,229 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:20:31,175 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:21:50,192 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:22:36,810 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:23:01,082 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:24:19,175 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:25:16,212 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:25:27,444 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:25:57,568 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:26:03,571 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:26:07,342 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 13:26:13,505 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:16:44,953 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:16:49,602 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:19:14,284 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:19:38,453 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:19:48,629 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:38:42,243 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:38:45,568 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:39:10,579 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:50:00,889 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:52:42,107 ERROR: Exception on /deals/1/delete [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 81, in delete
+    deal.delete()
+AttributeError: 'Deal' object has no attribute 'delete'
+2018-09-06 14:53:24,164 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 14:55:26,586 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 15:14:26,210 ERROR: Exception on /crm/criteria/3/edit [POST] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/crm/routes.py", line 113, in edit_criteria
+    return redirect(url_for('crm.view', contact_id=contact.id))
+NameError: global name 'contact' is not defined
+2018-09-06 15:15:58,397 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 15:38:32,160 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 16:54:33,674 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 16:54:50,120 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 102, in search
+    mail.send(msg)
+NameError: global name 'mail' is not defined
+2018-09-06 16:55:09,093 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]

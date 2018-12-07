@@ -1,0 +1,98 @@
+2018-09-06 21:09:26,837 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 99, in search
+    send_mail()
+  File "/Users/johnlopez/projects/assignably/app/src/util/__init__.py", line 31, in send_mail
+    s.send_message(msg)
+AttributeError: SMTP instance has no attribute 'send_message'
+2018-09-06 21:11:04,774 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 21:11:09,193 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 99, in search
+    send_mail()
+  File "/Users/johnlopez/projects/assignably/app/src/util/__init__.py", line 31, in send_mail
+    s.sendmessage(msg)
+AttributeError: SMTP instance has no attribute 'sendmessage'
+2018-09-06 21:11:32,935 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 21:11:34,570 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 99, in search
+    send_mail()
+  File "/Users/johnlopez/projects/assignably/app/src/util/__init__.py", line 31, in send_mail
+    s.sendmail(msg)
+TypeError: sendmail() takes at least 4 arguments (2 given)
+2018-09-06 21:14:17,196 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 21:14:20,843 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 99, in search
+    send_mail()
+  File "/Users/johnlopez/projects/assignably/app/src/util/__init__.py", line 24, in send_mail
+    msg['To']=receiver
+NameError: global name 'receiver' is not defined
+2018-09-06 21:14:31,223 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
+2018-09-06 21:14:34,373 ERROR: Exception on /deals/search [GET] [in /Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/johnlopez/projects/assignably/flask/lib/python2.7/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/johnlopez/projects/assignably/app/deals/routes.py", line 100, in search
+    if form.validate_on_submit():
+NameError: global name 'form' is not defined
+2018-09-06 21:18:41,799 INFO: Assignably startup [in /Users/johnlopez/projects/assignably/app/__init__.py:75]
