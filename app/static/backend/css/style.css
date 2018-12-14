@@ -479,14 +479,15 @@ File: Main Css
       float: right; }
   .notification-list .noti-icon {
     font-size: 22px;
-    padding: 0 12px;
+    padding: 10px 12px;
     vertical-align: middle;
     color: rgba(52, 60, 73, 0.8); }
   .notification-list .noti-icon-badge {
     display: inline-block;
     position: absolute;
-    top: 14px;
-    right: 8px; }
+    overflow: visible;
+    top: 0px;
+    right: 4px; }
   .notification-list .notify-item {
     padding: 10px 20px; }
     .notification-list .notify-item .notify-icon {
@@ -2018,7 +2019,6 @@ Modal
 /* Custom-modal */
 .modal-demo {
   background-color: #ffffff;
-  width: 600px;
   border-radius: 4px;
   display: none; }
   .modal-demo .close {
@@ -4414,5 +4414,14 @@ File: Responsive
   .required {
     color: red;
   }
+
+.modal-full {
+  min-width: 100%;
+  margin: 0;
+}
+
+.modal-full .modal-content {
+    min-height: 100vh;
+}
 
 /*# sourceMappingURL=style.css.map */

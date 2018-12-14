@@ -31,11 +31,18 @@ class Property(db.Model, AuditMixin):
 
     def addOwner(self, contact):
         if contact is not None:
-            self.contacts.append(PropertyContact(contact=contact, role="Owner"))
+            if not self.hasContactWithRole(contact, "Owner"):
+                self.contacts.append(PropertyContact(contact=contact, roles=[PropertyContactRole(role="Owner")]))
 
     def addOwners(self, owners):
         for owner in owners:
             self.addOwner(owner)
+
+    def hasContactWithRole(self, contact, role_str):
+        for property_contact in self.contacts:
+            if property_contact.hasRole(role_str) and property_contact.contact == contact:
+                return True
+        return False
 
 class ResidentialProperty(Property):
 
@@ -108,4 +115,27 @@ class PropertyContact(db.Model, AuditMixin):
     property = db.relationship("Property", back_populates="contacts")
     contact_id = db.Column(db.Integer, db.ForeignKey('contact.id'))
     contact = db.relationship("Contact")
+    role = db.Column(db.String(255))
+    roles = db.relationship("PropertyContactRole")
+
+    def addOwnerRole(self):
+        role = PropertyContactRole(role="Owner")
+        self.addRole(role)
+        db.session.add(role)
+
+    def addRole(self):
+        if self.roles is None:
+            self.roles = []
+        self.roles.append(role)
+
+    def hasRole(self, role_str):
+        for role in self.roles:
+            if role.role == role_str:
+                return True
+        return False
+
+class PropertyContactRole(db.Model, AuditMixin):
+    __tablename__ = "property_contact_role"
+    id = db.Column(db.Integer, primary_key=True)
+    property_contact_id = db.Column(db.Integer, db.ForeignKey('property_contact.id'))
     role = db.Column(db.String(255))

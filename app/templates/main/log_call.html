@@ -1,0 +1,100 @@
+{% extends 'main/layout/template.html' %}
+{% set modal = 1 %}
+{% block content %}
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group pull-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#">Minton</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <h4 class="page-title">New Call !</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title end breadcrumb -->
+
+<!-- Wizard with Validation -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="m-t-0 header-title"><b>Wizard with Validation</b></h4>
+            <p class="text-muted m-b-30 font-13">
+                Use the button classes on an <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, or <code>&lt;input&gt;</code> element.
+            </p>
+
+            <form class="form-horizontal" role="form" action="#">
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Caller</label>
+                    <div class="col-10">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn waves-effect waves-light btn-primary dropdown-toggle" data-toggle="dropdown" style="overflow: hidden; position: relative;">Action <span class="caret"></span></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a href="#search-contact-modal" class="dropdown-item" data-animation="push" data-plugin="custommodal"
+                                           data-overlaySpeed="100" data-overlayColor="#36404a">Search</a>
+
+                                    <a class="dropdown-item" href="#">New</a>
+                                </div>
+                            </div>
+                            <input type="text" id="example-input1-group3" readonly="" name="example-input1-group3" class="form-control" placeholder="Search or Create New Contact">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Property</label>
+                    <div class="col-10">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn waves-effect waves-light btn-primary dropdown-toggle" data-toggle="dropdown" style="overflow: hidden; position: relative;">Action <span class="caret"></span></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Search</a>
+                                    <a class="dropdown-item" href="#">New</a>
+                                </div>
+                            </div>
+                            <input type="text" id="example-input1-group3" readonly="" name="example-input1-group3" class="form-control" placeholder="Search or Create New Contact">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">Call Notes</label>
+                    <div class="col-10">
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End row -->
+
+<!-- Search Contact Modal -->
+<div id="search-contact-modal" class="modal-demo">
+    <button type="button" class="close" onclick="Custombox.close();">
+        <span>&times;</span><span class="sr-only">Close</span>
+    </button>
+    <h4 class="custom-modal-title">Search Contact</h4>
+    <div class="custom-modal-text">
+      <form class="form-horizontal" role="form" action="#">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">First Name</label>
+            <div class="col-10">
+                <input type="text" class="form-control" value="John">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Last Name</label>
+            <div class="col-10">
+                <input type="text" class="form-control" value="John">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success waves-effect waves-light m-l-10 btn-md">Search</button>
+      </form>
+    </div>
+</div>
+
+
+{% endblock %}

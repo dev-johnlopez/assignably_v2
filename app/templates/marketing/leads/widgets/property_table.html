@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="text-dark header-title m-t-0">Owned Properties</h4>
+  </div>
+  <div class="card-body">
+    <table class="table mb-0 table-responsive">
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Address</th>
+              <th>Role(s)</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for contact_role in property_contact_roles %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ contact_role.property }}</td>
+                <td>{{ contact_role.role }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('marketing.property', property_id=contact_role.property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                    <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    <a href="#" class="btn btn-primary pull-right">Add Property</a>
+  </div>
+</div>

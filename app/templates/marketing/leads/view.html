@@ -16,9 +16,12 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card card-box">
+<div class="row mt-3">
+    <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="text-dark header-title m-t-0">Contact Info</h4>
+          </div>
           <div class="card-body">
             <p class="card-text">Name: {{ lead }}</p>
             <p class="card-text">Email: {{ lead.email }}</p>
@@ -26,45 +29,14 @@
           </div>
         </div>
     </div>
+    <div class="col-lg-6">
+      {% include 'marketing/leads/widgets/property_table.html' %}
+  </div>
 </div>
 <!-- end page title end breadcrumb -->
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card-box">
-          <div class="row">
-            <div class="col-sm-10">
-                <h4 class="text-dark  header-title m-t-0">Owned Properties</h4>
-            </div>
-              <div class="col-sm-2">
-                  <div class="m-b-30">
-                      <a href="#" class="btn btn-success btn-sm waves-effect waves-light">Add <i class="mdi mdi-plus-circle-outline"></i></a>
-                  </div>
-              </div>
-          </div>
-
-          <table class="table mb-0 table-responsive datatable">
-              <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Address</th>
-                    <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for property in properties %}
-                  <tr>
-                      <td>{{ loop.index }}</td>
-                      <td><a href="#">{{ property }}</a></td>
-                      <td class="actions">
-                          <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
-                          <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                          <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                      </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-          </table>
-      </div>
+<div class="row mt-3">
+  <div class="col-lg-12">
+    {% include 'marketing/leads/widgets/call_history.html' %}
   </div>
   <!-- end col -12 -->
 </div>

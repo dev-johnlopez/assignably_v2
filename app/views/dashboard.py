@@ -34,3 +34,20 @@ def search():
         if page > 1 else None
     return render_template('main/search.html', title='Search', contacts=contacts,
                            next_url=next_url, prev_url=prev_url)
+
+@bp.route('/log_call', methods=['GET', 'POST'])
+@login_required
+def log_call():
+    return render_template('main/log_call.html', title='Log Call')
+
+@bp.route('/notifications')
+@login_required
+def notifications():
+    since = request.args.get('since', 0.0, type=float)
+    notifications = current_user.notifications.filter(
+        Notification.timestamp > since).order_by(Notification.timestamp.asc())
+    return jsonify([{
+        'name': n.name,
+        'data': n.get_data(),
+        'timestamp': n.timestamp
+    } for n in notifications])

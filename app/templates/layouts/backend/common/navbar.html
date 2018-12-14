@@ -1,6 +1,6 @@
 <!-- Navigation Bar-->
         <header id="topnav">
-            <div class="topbar-main">
+          <div class="topbar-main">
                 <div class="container-fluid">
 
                     <!-- Logo container-->
@@ -21,107 +21,91 @@
 
 
                     <div class="menu-extras topbar-custom">
+                        <ul class="list-inline float-right mb-0">
 
-                      <ul class="list-inline float-right mb-0">
+                            <li class="menu-item list-inline-item">
+                                <!-- Mobile menu toggle-->
+                                <a class="navbar-toggle nav-link">
+                                    <div class="lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </a>
+                                <!-- End mobile menu toggle-->
+                            </li>
+                            {% if g.search_form %}
+                            <li class="menu-item list-inline-item app-search">
+                                <form role="search" class="form-inline" method="get" action="{{ url_for('dashboard.search') }}">
+                                  {{ g.search_form.q(size=20, class='form-control', placeholder='Search...') }}
+                                </form>
+                            </li>
+                            {% endif %}
+                            <li class="list-inline-item dropdown notification-list">
+                                <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <i class="mdi mdi-bell noti-icon"></i>
+                                    {% if current_user.get_notification_count() > 0 %}
+                                      <span class="badge badge-pink noti-icon-badge">{{ current_user.get_notification_count() }}</span>
+                                    {% endif %}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">
+                                    <!-- item-->
+                                    <div class="dropdown-item noti-title">
+                                        <h5 class="font-16"><span class="badge badge-danger float-right">{{ current_user.get_notification_count() }}</span>Notification</h5>
+                                    </div>
+                                    {% for notification in current_user.notifications %}
+                                      <!-- item-->
+                                      <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                          <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>
+                                          <p class="notify-details">{{ notification.get_data() }}</p>
+                                      </a>
+                                    {% endfor %}
+                                    <!-- All-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
+                                        View All
+                                    </a>
 
-                        {#  <li class="list-inline-item dropdown notification-list">
-                              <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
-                                 aria-haspopup="false" aria-expanded="false">
-                                  <i class="mdi mdi-bell noti-icon"></i>
-                                  <span class="badge badge-pink noti-icon-badge">4</span>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">
-                                  <!-- item-->
-                                  <div class="dropdown-item noti-title">
-                                      <h5 class="font-16"><span class="badge badge-danger float-right">5</span>Notification</h5>
-                                  </div>
+                                </div>
+                            </li>
+                            <li class="list-inline-item dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    My Account
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                                    <!-- item-->
+                                    <div class="dropdown-item noti-title">
+                                        <h5 class="text-overflow"><small class="text-white">Welcome ! John</small> </h5>
+                                    </div>
 
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>
-                                      <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
-                                  </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
+                                    </a>
 
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <div class="notify-icon bg-info"><i class="mdi mdi-account"></i></div>
-                                      <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
-                                  </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-settings"></i> <span>Settings</span>
+                                    </a>
 
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <div class="notify-icon bg-danger"><i class="mdi mdi-airplane"></i></div>
-                                      <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
-                                  </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
+                                    </a>
 
-                                  <!-- All-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
-                                      View All
-                                  </a>
-
-                              </div>
-                          </li>#}
-
-                          <li class="list-inline-item">
-                              <a class="nav-link waves-light waves-effect" href="{{ url_for_security('logout') }}">
-                                  Logout
-                              </a>
-                          </li>
-
-                        {#  <li class="list-inline-item dropdown notification-list">
-                              <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
-                                 aria-haspopup="false" aria-expanded="false">
-                                  <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
-                                  <!-- item-->
-                                  <div class="dropdown-item noti-title">
-                                      <h5 class="text-overflow"><small>Welcome ! John</small> </h5>
-                                  </div>
-
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
-                                  </a>
-
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <i class="mdi mdi-settings"></i> <span>Settings</span>
-                                  </a>
-
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
-                                  </a>
-
-                                  <!-- item-->
-                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                      <i class="mdi mdi-logout"></i> <span>Logout</span>
-                                  </a>
-
-                              </div>
-                          </li>#}
-
-                      </ul>
-                      {% if g.search_form %}
-                      <ul class="list-inline menu-left mb-0 pull-right">
-
-                          <li class="hide-phone app-search">
-                              <form role="search" class="form-inline" method="get" action="{{ url_for('dashboard.search') }}">
-                                {{ g.search_form.q(size=20, class='form-control', placeholder='Search...') }}
-                              </form>
-                          </li>
-                      </ul>
-                      {% endif %}
-
+                                    <!-- item-->
+                                    <a href="{{ url_for('security.logout')}}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-logout"></i> <span>Logout</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <!-- end menu-extras -->
-
                     <div class="clearfix"></div>
-
                 </div> <!-- end container -->
             </div>
-            <!-- end topbar-main -->
 
             <div class="navbar-custom">
                 <div class="container-fluid">
@@ -137,7 +121,7 @@
                             <li class="has-submenu">
                                 <a href="{{ url_for('upload.index') }}"><i class="mdi mdi-account-multiple"></i>Upload</a>
                             </li>
-                            {% if current_user.email == "john@johnlopez.org" or current_user.email == "johnny.lopez617@gmail.com" %}
+                            {% if current_user.is_admin() %}
                             <li class="has-submenu">
                                 <a href="{{ url_for('admin.index') }}"><i class="mdi mdi-database"></i>Admin</a>
                             </li>

@@ -18,6 +18,13 @@
 
         <link rel="shortcut icon" href="{{ url_for('static', filename='backend/images/favicon.ico') }}">
 
+        {% if wizard %}
+          <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='backend/plugins/jquery.steps/css/jquery.steps.css') }}" />
+        {% endif %}
+
+        {% if modal %}
+          <link href="{{ url_for('static', filename='backend/plugins/custombox/dist/custombox.min.css') }}" rel="stylesheet">
+        {% endif %}
 
         {% if summernote %}
           <link rel="stylesheet" href="{{ url_for('static', filename='backend/plugins/summernote/summernote.css') }}">

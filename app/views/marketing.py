@@ -4,7 +4,7 @@ from app.views import marketing_bp as bp
 from app.forms.search import SearchForm
 from flask_security import current_user
 from app.models.contact import Contact
-from app.models.property import PropertyContact
+from app.models.property import PropertyContact, Property
 
 @bp.before_app_request
 def before_request():
@@ -30,8 +30,15 @@ def leads():
 def lead(lead_id):
     lead = Contact.query.get(lead_id)
     property_contacts = PropertyContact.query.filter_by(contact_id=lead.id)
-    properties = [contact.property for contact in property_contacts if contact.role == "Owner"]
+    #properties = [contact.property for contact in property_contacts if contact.role == "Owner"]
     return render_template('marketing/leads/view.html',
                             title="View",
                             lead=lead,
-                            properties=properties)
+                            property_contact_roles=property_contacts)
+
+@bp.route('/properties/<property_id>')
+def property(property_id):
+    property = Property.query.get(property_id)
+    return render_template('marketing/properties/view.html',
+                            title="View",
+                            property=property)

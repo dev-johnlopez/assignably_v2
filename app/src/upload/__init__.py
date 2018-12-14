@@ -40,16 +40,13 @@ listsource_headers = [
 
 
 def upload_leads(fileData, user):
-    print("Uploading leads...")
     if fileData is not None:
         df = readExcel(fileData, user)
         if validDataFrame(df, listsource_headers):
-            print("Valid data frame...")
             mapProperties(df, user)
 
 def upload_lead_dataframe(dataFrame, user):
     if validDataFrame(dataFrame, listsource_headers):
-        print("Valid data frame...")
         mapProperties(dataFrame, user)
 
 def validDataFrame(df, headers):
@@ -62,23 +59,25 @@ def readExcel(fileData, user):
     return df2
 
 def mapProperties(df, user):
+    total_rows = len(df.index)
     for index, row in df.iterrows():
-        print("Importing record #{}".format(index+1))
-        mailing_address = mapAddress(row, "MAIL")
-        owner1 = mapOwner(row, "1", mailing_address)
-        owner2 = mapOwner(row, "2", mailing_address)
-        owners = [owner1, owner2]
-        property_address = mapAddress(row, "PROPERTY")
-        property = mapProperty(row, property_address)
-        property.addOwners([owner1, owner2])
-        if mailing_address.compareTo(property_address) is False:
-            print("Importing mailing address for #{}".format(index+1))
-            mailing_property = mapProperty(None, mailing_address)
-            mailing_property.addOwners(owners)
-            db.session.add(mailing_property)
-        db.session.add(property)
-
+        processRow(row)
+    user.add_notification('bulk_upload_complete', None)
     db.session.commit()
+
+def processRow(row):
+    mailing_address = mapAddress(row, "MAIL")
+    owner1 = mapOwner(row, "1", mailing_address)
+    owner2 = mapOwner(row, "2", mailing_address)
+    owners = [owner1, owner2]
+    property_address = mapAddress(row, "PROPERTY")
+    property = mapProperty(row, property_address)
+    property.addOwners([owner1, owner2])
+    if mailing_address.compareTo(property_address) is False:
+        mailing_property = mapProperty(None, mailing_address)
+        mailing_property.addOwners(owners)
+        db.session.add(mailing_property)
+    db.session.add(property)
 
 
 def mapOwner(dfRow, owner_number, mailing_address):
@@ -92,6 +91,7 @@ def mapOwner(dfRow, owner_number, mailing_address):
 
     owner = getOwnerRecordIfDuplicateExists(first_name, last_name, contact_type, mailing_address)
     if owner is not None:
+        print("********: WARNING - DUPLICATE OWNER FOUND")
         return owner
 
     return Contact(
@@ -127,6 +127,7 @@ def mapAddress(dfRow, addressType):
         print("********: ERROR - DUPLICATE ADDRESSES FOUND")
 
     if len(matching_addresses) is 1:
+        print("********: WARNING - DUPLICATE ADDRESSES FOUND")
         return matching_addresses[0]
 
     return Address(

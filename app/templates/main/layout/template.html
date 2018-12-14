@@ -15,18 +15,7 @@
 
       {% include 'layouts/backend/common/footer.html' %}
 
-
-      <!-- jQuery  -->
-      <script src="{{ url_for('static', filename='backend/js/jquery.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='backend/js/popper.min.js') }}"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->
-      <script src="{{ url_for('static', filename='backend/js/bootstrap.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='backend/js/waves.js') }}"></script>
-      <script src="{{ url_for('static', filename='backend/js/jquery.slimscroll.js') }}"></script>
-      <script src="{{ url_for('static', filename='backend/js/jquery.scrollTo.min.js') }}"></script>
-
-      <!-- App js -->
-      <script src="{{ url_for('static', filename='backend/js/jquery.core.js') }}"></script>
-      <script src="{{ url_for('static', filename='backend/js/jquery.app.js') }}"></script>
+      {% include 'layouts/backend/common/javascript.html' %}
 
   </body>
 </html>
