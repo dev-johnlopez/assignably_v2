@@ -1,4 +1,4 @@
-{% set active_page = "dashboard" %}
+{% set active_page = "properties" %}
 {% set map = 1 %}
 {% set sweetalert = 1 %}
 {% extends 'marketing/layout/template.html' %}
@@ -12,7 +12,7 @@
           </div>
           <div class="col-sm-6">
             <div class="pull-right">
-              <a href="#" class="btn btn-primary">Edit</a>
+              <a href="{{ url_for('marketing.edit_property', property_id=property.id) }}" class="btn btn-primary">Edit</a>
               <a href="#" class="btn btn-danger">Delete</a>
               <button id="#" class="btn btn-success export-buyers">Export Buyers</button>
               <a href="#" class="btn btn-success">Email</a>
@@ -54,7 +54,7 @@
           <tr>
             <th scope="row">1</th>
             <td>{{ contact.contact }}</td>
-            <td>{{ contact.role }}</td>
+            <td>{{ contact.getAllRoleNames() }}</td>
             <td class="actions">
                 <a href="{{ url_for('marketing.lead', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
                 <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>

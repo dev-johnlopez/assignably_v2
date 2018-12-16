@@ -4,7 +4,13 @@ from app.views import marketing_bp as bp
 from app.forms.search import SearchForm
 from flask_security import current_user
 from app.models.contact import Contact
+from app.models.note import Note
 from app.models.property import PropertyContact, Property
+from app.forms.lead import LeadForm
+from app.forms.note import NoteForm
+from app.forms.property import PropertyForm
+from app.forms.search import PropertySearchForm
+from app.constants import notetype as NOTE_CONSTANTS
 
 @bp.before_app_request
 def before_request():
@@ -36,9 +42,79 @@ def lead(lead_id):
                             lead=lead,
                             property_contact_roles=property_contacts)
 
+@bp.route('/leads/<lead_id>/edit', methods=['GET','POST'])
+def edit_lead(lead_id):
+    lead = Contact.query.get(lead_id)
+    form = LeadForm(obj=lead)
+    if form.validate_on_submit():
+        form.populate_obj(lead)
+        db.session.add(lead)
+        db.session.commit()
+    return render_template('marketing/leads/edit.html',
+                            title="Edit",
+                            lead=lead,
+                            form=form)
+
+@bp.route('/leads/<lead_id>/log_call', methods=['GET','POST'])
+def log_call(lead_id):
+    lead = Contact.query.get(lead_id)
+    form = NoteForm()
+    if form.validate_on_submit():
+        note = Note()
+        form.populate_obj(note)
+        lead.addNote(note)
+        db.session.add(note)
+        db.session.commit()
+        return redirect(url_for('marketing.lead', lead_id=lead_id))
+    flash(form.errors, 'error')
+    return render_template('marketing/leads/log_call.html',
+                            title="Edit",
+                            lead=lead,
+                            form=form)
+
+@bp.route('/properties', methods=['GET'])
+def all_properties():
+    properties = []
+    form = PropertySearchForm()
+    if form.validate():
+        temp_properties = current_user.get_property_leads()
+        bedroom_filter = None
+        bathroom_filter = None
+        property_type_filter = None
+        if form.bedrooms.data is not None:
+            bedroom_filter = int(form.bedrooms.data)
+        if form.bathrooms.data is not None:
+            bathroom_filter = int(form.bathrooms.data)
+        if form.property_type.data is not None and form.property_type.data != 'None':
+            property_type_filter = int(form.property_type.data)
+        for property in temp_properties:
+            if (bedroom_filter is None or property.bedrooms >= bedroom_filter) \
+                and (bathroom_filter is None or property.bathrooms >= bathroom_filter) \
+                and (property_type_filter is None or property.property_type == property_type_filter):
+                properties.append(property)
+    return render_template('marketing/properties/all.html',
+                            title="View",
+                            form=form,
+                            properties=properties)
+
+
 @bp.route('/properties/<property_id>')
 def property(property_id):
     property = Property.query.get(property_id)
     return render_template('marketing/properties/view.html',
                             title="View",
                             property=property)
+
+@bp.route('/properties/<property_id>/edit', methods=['GET', 'POST'])
+def edit_property(property_id):
+    property = Property.query.get(property_id)
+    form = PropertyForm(obj=property)
+    if form.validate_on_submit():
+        form.populate_obj(property)
+        db.session.add(property)
+        db.session.commit()
+        return redirect(url_for('marketing.property', property_id=property_id))
+    return render_template('marketing/properties/edit.html',
+                            title="Edit",
+                            property=property,
+                            form=form)

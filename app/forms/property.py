@@ -1,20 +1,15 @@
-from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField
+from wtforms import StringField, IntegerField, FormField, BooleanField, TextAreaField, SelectField, DateField, BooleanField
 from wtforms.validators import DataRequired, Optional
+from wtforms.widgets import TextArea
+from app.forms.address import AddressForm
 from app.constants import propertytype as PROPERTY_CONSTANTS
+from app.models.address import Address
 
-class SearchForm(FlaskForm):
-    q = StringField('Search', validators=[DataRequired()])
-
-    def __init__(self, *args, **kwargs):
-        if 'formdata' not in kwargs:
-            kwargs['formdata'] = request.args
-        if 'csrf_enabled' not in kwargs:
-            kwargs['csrf_enabled'] = False
-        super(SearchForm, self).__init__(*args, **kwargs)
-
-class PropertySearchForm(FlaskForm):
+class PropertyForm(FlaskForm):
+    address = FormField(AddressForm, default=lambda: Address())
+    owner_occupied = BooleanField()
+    units = IntegerField('# Units', validators=[DataRequired()])
     property_type = SelectField('Property Type', choices=[
                                         ('', ''),
                                         (str(PROPERTY_CONSTANTS.OTHER), 'Other'),
@@ -23,13 +18,12 @@ class PropertySearchForm(FlaskForm):
                                         (str(PROPERTY_CONSTANTS.COMMERCIAL_MULTI_FAMILY), 'Commercial Multi Fmaily'),
                                         (str(PROPERTY_CONSTANTS.SELF_STORAGE), 'Self Storage'),
                                         (str(PROPERTY_CONSTANTS.RETAIL), 'Retail')],
-                            validators=[Optional()])
+                            validators=[DataRequired()])
+    units = IntegerField('# Units', validators=[Optional()])
+    sq_feet = IntegerField('Sq. Feet', validators=[Optional()])
     bedrooms = IntegerField('Bedrooms', validators=[Optional()])
     bathrooms = IntegerField('Bathrooms', validators=[Optional()])
-
-    def __init__(self, *args, **kwargs):
-        if 'formdata' not in kwargs:
-            kwargs['formdata'] = request.args
-        if 'csrf_enabled' not in kwargs:
-            kwargs['csrf_enabled'] = False
-        super(PropertySearchForm, self).__init__(*args, **kwargs)
+    basement_desc = StringField('Basement Description', validators=[Optional()], widget=TextArea())
+    garage_desc = StringField('Garage Description', validators=[Optional()], widget=TextArea())
+    last_sale_date = DateField('Last Sale Date', validators=[Optional()])
+    owner_occupied = BooleanField('Owner Occupied?', validators=[Optional()])

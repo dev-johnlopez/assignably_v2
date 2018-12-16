@@ -1,5 +1,6 @@
 from app import db
-from app import constants as CONSTANTS
+from app.constants import propertytype as PROPERTY_CONSTANTS
+from app.constants import contactrole as CONTACT_ROLE_CONSTANTS
 from app.mixins.audit import AuditMixin
 
 class Property(db.Model, AuditMixin):
@@ -13,13 +14,13 @@ class Property(db.Model, AuditMixin):
     sq_feet = db.Column(db.Integer)
     bedrooms = db.Column(db.Integer)
     bathrooms = db.Column(db.Integer)
-    basement_type = db.Column(db.String(255))
-    garage_type = db.Column(db.String(255))
+    basement_desc = db.Column(db.String(255))
+    garage_desc = db.Column(db.String(255))
     last_sale_date = db.Column(db.Date)
     owner_occupied = db.Column(db.Boolean)
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.OTHER,
+        'polymorphic_identity':PROPERTY_CONSTANTS.OTHER,
         'polymorphic_on':property_type
     }
 
@@ -27,12 +28,12 @@ class Property(db.Model, AuditMixin):
         return str(self.address)
 
     def getPropertyType(self):
-          return CONSTANTS.PROPERTY_TYPE[self.property_type]
+          return PROPERTY_CONSTANTS.PROPERTY_TYPE[self.property_type]
 
     def addOwner(self, contact):
         if contact is not None:
             if not self.hasContactWithRole(contact, "Owner"):
-                self.contacts.append(PropertyContact(contact=contact, roles=[PropertyContactRole(role="Owner")]))
+                self.contacts.append(PropertyContact(contact=contact, roles=[PropertyContactRole(role=int(CONTACT_ROLE_CONSTANTS.OWNER))]))
 
     def addOwners(self, owners):
         for owner in owners:
@@ -47,7 +48,7 @@ class Property(db.Model, AuditMixin):
 class ResidentialProperty(Property):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.RESIDENTIAL
+        'polymorphic_identity':PROPERTY_CONSTANTS.RESIDENTIAL
     }
 
     def __init__(self, **kwargs):
@@ -57,7 +58,7 @@ class ResidentialProperty(Property):
 class SingleFamilyProperty(ResidentialProperty):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.SFR
+        'polymorphic_identity':PROPERTY_CONSTANTS.SFR
     }
 
     def __init__(self, **kwargs):
@@ -66,7 +67,7 @@ class SingleFamilyProperty(ResidentialProperty):
 class ResidentialMultiFamilyProperty(ResidentialProperty):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.RESIDENTIAL_MULTI_FAMILY
+        'polymorphic_identity':PROPERTY_CONSTANTS.RESIDENTIAL_MULTI_FAMILY
     }
 
     def __init__(self, **kwargs):
@@ -75,7 +76,7 @@ class ResidentialMultiFamilyProperty(ResidentialProperty):
 class CommercialProperty(Property):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.COMMERCIAL
+        'polymorphic_identity':PROPERTY_CONSTANTS.COMMERCIAL
     }
 
     def __init__(self, **kwargs):
@@ -84,7 +85,7 @@ class CommercialProperty(Property):
 class CommercialMultiFamilyProperty(CommercialProperty):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.COMMERCIAL_MULTI_FAMILY
+        'polymorphic_identity':PROPERTY_CONSTANTS.COMMERCIAL_MULTI_FAMILY
     }
 
     def __init__(self, **kwargs):
@@ -93,7 +94,7 @@ class CommercialMultiFamilyProperty(CommercialProperty):
 class SelfStorageProperty(CommercialProperty):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.SELF_STORAGE
+        'polymorphic_identity':PROPERTY_CONSTANTS.SELF_STORAGE
     }
 
     def __init__(self, **kwargs):
@@ -102,7 +103,7 @@ class SelfStorageProperty(CommercialProperty):
 class RetailProperty(CommercialProperty):
 
     __mapper_args__ = {
-        'polymorphic_identity':CONSTANTS.RETAIL
+        'polymorphic_identity':PROPERTY_CONSTANTS.RETAIL
     }
 
     def __init__(self, **kwargs):
@@ -119,7 +120,7 @@ class PropertyContact(db.Model, AuditMixin):
     roles = db.relationship("PropertyContactRole")
 
     def addOwnerRole(self):
-        role = PropertyContactRole(role="Owner")
+        role = PropertyContactRole(role=int(CONTACT_ROLE_CONSTANTS.OWNER))
         self.addRole(role)
         db.session.add(role)
 
@@ -134,8 +135,14 @@ class PropertyContact(db.Model, AuditMixin):
                 return True
         return False
 
+    def getAllRoleNames(self):
+        return ', '.join([str(role.role) for role in self.roles])
+
 class PropertyContactRole(db.Model, AuditMixin):
     __tablename__ = "property_contact_role"
     id = db.Column(db.Integer, primary_key=True)
     property_contact_id = db.Column(db.Integer, db.ForeignKey('property_contact.id'))
-    role = db.Column(db.String(255))
+    type = db.Column(db.Integer)
+
+    def getRole(self):
+        return CONTACT_ROLE_CONSTANTS.CONTACT_ROLE[self.role]

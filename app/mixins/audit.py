@@ -45,9 +45,13 @@ class AuditMixin(object):
 
 
 def _current_user_id_or_none():
+    create_user_id = None
     try:
-        if g.user.id is not None:
-            return g.user.id
+        return g.user.id
+    except:
+        pass
+    try:
         return current_user.id
     except:
-        return None
+        pass
+    return None

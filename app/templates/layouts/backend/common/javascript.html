@@ -6,6 +6,10 @@
 <script src="{{ url_for('static', filename='backend/js/jquery.slimscroll.js') }}"></script>
 <script src="{{ url_for('static', filename='backend/js/jquery.scrollTo.min.js') }}"></script>
 
+{% if data_mask %}
+<script src="{{ url_for('static', filename='backend/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js') }}" type="text/javascript"></script>
+{% endif %}
+
 {% if datatable %}
 <!-- Required datatable js -->
 <script src="{{ url_for('static', filename='backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -67,16 +71,20 @@
 <script>
   var map;
   function initMap() {
-    var propertyLocation = {lat: {{ property.address.latitude}}, lng: {{ property.address.longitude}}};
-    var map = new google.maps.Map(document.getElementById('gmaps-marker'), {
-      center: propertyLocation,
-      zoom: 8
-    });
-    var marker = new google.maps.Marker({
-      position: propertyLocation,
-      map: map,
-      title: '{{ property.address }}'
-    });
+    {#{% if properties %}
+
+    {% else %}
+      var propertyLocation = {lat: {{ property.address.latitude}}, lng: {{ property.address.longitude}}};
+      var map = new google.maps.Map(document.getElementById('gmaps-marker'), {
+        center: propertyLocation,
+        zoom: 8
+      });
+      var marker = new google.maps.Marker({
+        position: propertyLocation,
+        map: map,
+        title: '{{ property.address }}'
+      });
+    {% endif %}#}
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW06EkRn-nhTFtmqjiPsQN_1GBsI9Lh2Q&callback=initMap"

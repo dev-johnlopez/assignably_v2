@@ -1,0 +1,6 @@
+{% from "macros/_horizontal_form.html" import render_field_with_errors %}
+{{ render_field_with_errors(form.line_1, type="text", class="form-control") }}
+{{ render_field_with_errors(form.line_2, type="text", class="form-control") }}
+{{ render_field_with_errors(form.city, type="text", class="form-control") }}
+{{ render_field_with_errors(form.state_code, type="select", class="form-control") }}
+{{ render_field_with_errors(form.postal_code, type="text", class="form-control") }}

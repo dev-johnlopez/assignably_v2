@@ -1,0 +1,9 @@
+<form class="form-horizontal" method="post">
+  {% from "macros/_horizontal_form.html" import render_field_with_errors %}
+  {{ form.hidden_tag() }}
+  {{ render_field_with_errors(form.type, type="select", class="form-control") }}
+  {{ render_field_with_errors(form.comments, type="text", class="form-control") }}
+  <div class="row-fluid mt-3 pull-right">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>

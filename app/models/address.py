@@ -1,5 +1,6 @@
 from flask import current_app
 from app import db, geolocator
+from sqlalchemy import event
 from app.mixins.audit import AuditMixin
 
 class Address(db.Model, AuditMixin):
@@ -18,7 +19,6 @@ class Address(db.Model, AuditMixin):
 
     def __init__(self, **kwargs):
         super(Address, self).__init__(**kwargs)
-        self.geocode(**kwargs)
 
     def __repr__(self):
         return '{}, {}, {} {}'.format(self.line_1, self.city, self.state_code, self.postal_code)
@@ -33,6 +33,8 @@ class Address(db.Model, AuditMixin):
         try:
             location = geolocator.geocode('{} {} {} {}'.format(line_1, city, state_code, postal_code))
             if location is not None:
+                print(location.latitude)
+                print(location.longitude)
                 self.latitude = location.latitude
                 self.longitude = location.longitude
         except:
@@ -46,3 +48,9 @@ class Address(db.Model, AuditMixin):
                 and self.city == address.city \
                 and self.state_code == address.state_code \
                 and self.postal_code == address.postal_code
+
+def update_geocoding(mapper, connection, target):
+    target.geocode()
+
+event.listen(Address, 'before_insert', update_geocoding)
+event.listen(Address, 'before_update', update_geocoding)

@@ -2,6 +2,7 @@ from app import db
 from app.mixins.audit import AuditMixin
 from app.mixins.searchable import SearchableMixin
 from app.models.property import Property, PropertyContact
+from app.models.note import Note
 
 
 class Contact(db.Model, AuditMixin, SearchableMixin):
@@ -16,6 +17,7 @@ class Contact(db.Model, AuditMixin, SearchableMixin):
     email = db.Column(db.String(255))
     mailing_address = db.relationship('Address', uselist=False)
     mailing_address_id = db.Column(db.Integer, db.ForeignKey('address.id'))
+    notes = db.relationship('Note', back_populates='contact')
 
     __mapper_args__ = {
         'polymorphic_identity':'contact',
@@ -41,6 +43,11 @@ class Contact(db.Model, AuditMixin, SearchableMixin):
 
     def getNumberOfProperties(self):
         return Property.query.join(PropertyContact).filter(PropertyContact.contact_id == self.id).count()
+
+    def addNote(self, note):
+        if self.notes is None:
+            self.notes = []
+        self.notes.append(note)
 
 
 class Investor(Contact):

@@ -7,26 +7,22 @@
         <thead>
           <tr>
               <th>#</th>
-              <th>Address</th>
-              <th>Role(s)</th>
-              <th>Actions</th>
+              <th>Author</th>
+              <th>Comments</th>
+              <th>Date</th>
           </tr>
         </thead>
         <tbody>
-          {% for property in properties %}
+          {% for note in lead.notes %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td>{{ property }}</td>
-                <td></td>
-                <td class="actions">
-                    <a href="{{ url_for('marketing.property', property_id=property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
-                    <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                    <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                </td>
+                <td>{{ note.created_by }}</td>
+                <td>{{ note.comments }}</td>
+                <td>{{ note.created_at }}</td>
             </tr>
           {% endfor %}
         </tbody>
     </table>
-    <a href="#" class="btn btn-primary pull-right">Add Call</a>
+    <a href="{{ url_for('marketing.log_call', lead_id=lead.id)}}" class="btn btn-primary pull-right">Add Call</a>
   </div>
 </div>
