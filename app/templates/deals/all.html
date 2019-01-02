@@ -33,7 +33,7 @@
             <th scope="row">{{ loop.index }}</th>
             <td>{{ property }}</td>
             <td class="actions">
-                <a href="{{ url_for('marketing.property', property_id=property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                <a href="{{ url_for('deals.view', property_id=property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
             </td>
           </tr>
         {% endfor %}

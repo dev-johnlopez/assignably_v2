@@ -19,7 +19,7 @@
                 <td>{{ contact_role.property }}</td>
                 <td>{{ contact_role.getAllRoleNames() }}</td>
                 <td class="actions">
-                    <a href="{{ url_for('marketing.property', property_id=contact_role.property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                    <a href="{{ url_for('deals.view', property_id=contact_role.property.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
                 </td>
             </tr>
           {% endfor %}

@@ -1,6 +1,7 @@
-{% extends 'marketing/layout/template.html' %}
+{% extends 'leads/layout/template.html' %}
+{% set datatable = 1 %}
 {% set data_mask = 1 %}
-{% set active_page = "properties" %}
+{% set active_page = "leads" %}
 {% block content %}
 <!-- Page-Title -->
 <div class="row">
@@ -9,10 +10,10 @@
             <div class="btn-group pull-right">
                 <ol class="breadcrumb hide-phone p-0 m-0">
                     <li class="breadcrumb-item"><a href="#">Marketing</a></li>
-                    <li class="breadcrumb-item active">Property</li>
+                    <li class="breadcrumb-item active">Leads</li>
                 </ol>
             </div>
-            <h4 class="page-title">{{ property }}</h4>
+            <h4 class="page-title">{{ lead }}</h4>
         </div>
     </div>
 </div>
@@ -20,7 +21,7 @@
   <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          {% include 'marketing/properties/forms/property.html' %}
+          {% include 'marketing/leads/forms/lead.html' %}
         </div>
       </div>
   </div>

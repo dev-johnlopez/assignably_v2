@@ -1,4 +1,5 @@
 from rq import get_current_job
+import sys
 from app import create_app
 from app import db
 from app.models.task import Task
@@ -36,6 +37,7 @@ def import_leads(user_id, data_frame):
                 _set_task_progress(100 * (index + 1) // total_rows)
             user.add_notification('bulk_upload_complete', None)
             db.session.commit()
+            _set_task_progress(100)
     except:
+        _set_task_progress(100)
         app.logger.error('Unhandled exception', exc_info=sys.exc_info())
-    _set_task_progress(100)

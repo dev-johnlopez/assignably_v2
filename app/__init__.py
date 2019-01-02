@@ -45,7 +45,7 @@ def create_app(config_class=Config):
         if not app.debug:
             from flask_sslify import SSLify
             sslify = SSLify(app)
-        
+
         db.init_app(app)
         migrate.init_app(app, db)
         mail.init_app(app)
@@ -63,6 +63,8 @@ def create_app(config_class=Config):
         app.register_blueprint(errors_bp)
         app.register_blueprint(upload_bp, url_prefix="/import")
         app.register_blueprint(marketing_bp, url_prefix="/marketing")
+        app.register_blueprint(leads_bp, url_prefix="/leads")
+        app.register_blueprint(deals_bp, url_prefix="/deals")
 
         from app.admin import create_admin
         admin = create_admin(app, db)

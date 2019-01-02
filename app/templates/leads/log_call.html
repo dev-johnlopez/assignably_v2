@@ -1,5 +1,4 @@
-{% extends 'marketing/layout/template.html' %}
-{% set datatable = 1 %}
+{% extends 'leads/layout/template.html' %}
 {% set data_mask = 1 %}
 {% set active_page = "leads" %}
 {% block content %}
@@ -21,7 +20,7 @@
   <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          {% include 'marketing/leads/forms/lead.html' %}
+          {% include 'marketing/leads/forms/log_call.html' %}
         </div>
       </div>
   </div>

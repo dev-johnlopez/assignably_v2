@@ -1,0 +1,79 @@
+<form class="form-horizontal" method="post">
+  {% from "macros/_horizontal_form.html" import render_field_with_errors, render_monetary_field_with_errors, render_percent_field_with_errors %}
+  {{ form.hidden_tag() }}
+  <div class="row mt-3">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+            Purchase Details
+        </div>
+        <div class="card-body">
+          {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.closing_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.rent_ready_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.initial_reserve_amount,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.lease_option_fee,type="text", class="form-control", placeholder="") }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+            Financing Information
+        </div>
+        <div class="card-body">
+          {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.closing_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.rent_ready_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.initial_reserve_amount,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.lease_option_fee,type="text", class="form-control", placeholder="") }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+            Income Details
+        </div>
+        <div class="card-body">
+          {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.closing_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.rent_ready_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.initial_reserve_amount,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.lease_option_fee,type="text", class="form-control", placeholder="") }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+            Expense Details
+        </div>
+        <div class="card-body">
+          {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.closing_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.rent_ready_costs,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.initial_reserve_amount,type="text", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.lease_option_fee,type="text", class="form-control", placeholder="") }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid mt-3 pull-right">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>

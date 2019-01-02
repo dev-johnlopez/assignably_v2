@@ -15,3 +15,11 @@ from . import upload
 marketing_bp = Blueprint('marketing', __name__)
 
 from . import marketing
+
+leads_bp = Blueprint('leads', __name__)
+
+from . import leads
+
+deals_bp = Blueprint('deals', __name__)
+
+from . import deals

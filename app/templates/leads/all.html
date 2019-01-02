@@ -1,4 +1,4 @@
-{% extends 'marketing/layout/template.html' %}
+{% extends 'leads/layout/template.html' %}
 {% set datatable = 1 %}
 {% set active_page = "leads" %}
 {% block content %}
@@ -45,7 +45,7 @@
                       <td>{{ loop.index }}</td>
                       <td><a href="#">{{ lead }}</a></td>
                       <td class="actions">
-                          <a href="{{ url_for('marketing.lead', lead_id=lead.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                          <a href="{{ url_for('leads.view', lead_id=lead.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
                       </td>
                   </tr>
                 {% endfor %}

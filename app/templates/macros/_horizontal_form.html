@@ -1,5 +1,4 @@
 {% macro render_field_with_errors(field) %}
-
   <div class="form-group row">
     <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>
     <div class="col-9">
@@ -22,4 +21,42 @@
       {% endif %}
     </div>
   </div>
+{% endmacro %}
+
+{% macro render_monetary_field_with_errors(field) %}
+<div class="form-group row">
+  <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>
+  <div class="col-9">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-usd"></i></span>
+        {{ field(**kwargs)|safe }}
+    </div>
+    {% if field.errors %}
+      {% for error in field.errors %}
+      <div class="invalid-feedback d-block">
+        {{ error }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro render_percent_field_with_errors(field) %}
+<div class="form-group row">
+  <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>
+  <div class="col-9">
+    <div class="input-group">
+        {{ field(**kwargs)|safe }}
+        <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+    </div>
+    {% if field.errors %}
+      {% for error in field.errors %}
+      <div class="invalid-feedback d-block">
+        {{ error }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
 {% endmacro %}

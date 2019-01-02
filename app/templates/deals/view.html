@@ -1,7 +1,7 @@
 {% set active_page = "properties" %}
 {% set map = 1 %}
 {% set sweetalert = 1 %}
-{% extends 'marketing/layout/template.html' %}
+{% extends 'deals/layout/template.html' %}
 {% block content %}
 <div class="row-fluid mt-3">
   <div class="card">
@@ -12,8 +12,9 @@
           </div>
           <div class="col-sm-6">
             <div class="pull-right">
-              <a href="{{ url_for('marketing.edit_property', property_id=property.id) }}" class="btn btn-primary">Edit</a>
+              <a href="{{ url_for('deals.edit', property_id=property.id) }}" class="btn btn-primary">Edit</a>
               <a href="#" class="btn btn-danger">Delete</a>
+              <a href="{{ url_for('deals.add_proforma', property_id=property.id) }}" class="btn btn-primary">Add Proforma</a>
               <button id="#" class="btn btn-success export-buyers">Export Buyers</button>
               <a href="#" class="btn btn-success">Email</a>
             </div>
@@ -56,7 +57,7 @@
             <td>{{ contact.contact }}</td>
             <td>{{ contact.getAllRoleNames() }}</td>
             <td class="actions">
-                <a href="{{ url_for('marketing.lead', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                <a href="{{ url_for('leads.view', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
                 <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
             </td>

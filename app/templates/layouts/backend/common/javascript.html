@@ -71,20 +71,44 @@
 <script>
   var map;
   function initMap() {
-    {#{% if properties %}
+    {% if properties %}
+    var markers = [];//some array
+    var map = new google.maps.Map(document.getElementById('gmaps-marker'), {
+      center: {lat: -34.397, lng: 150.644},
+      maxZoom: 15
+    });
+    {% for property in properties %}
+      {% if property.address.latitude is not none and property.address.longitude is not none %}
+        markers.push(new google.maps.Marker({
+          position: {lat: {{ property.address.latitude }}, lng: {{ property.address.longitude}} },
+          map: map,
+          title: '{{ property.address }}',
+          url: '{{ url_for('deals.view', property_id=property.id) }}'
+        }));
+      {% endif %}
+    {% endfor %}
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < markers.length; i++) {
+     bounds.extend(markers[i].getPosition());
+    }
+
+    map.fitBounds(bounds);
 
     {% else %}
-      var propertyLocation = {lat: {{ property.address.latitude}}, lng: {{ property.address.longitude}}};
-      var map = new google.maps.Map(document.getElementById('gmaps-marker'), {
-        center: propertyLocation,
-        zoom: 8
-      });
-      var marker = new google.maps.Marker({
-        position: propertyLocation,
-        map: map,
-        title: '{{ property.address }}'
-      });
-    {% endif %}#}
+      {% if property and property.address.latitude is not none and property.address.longitude is not none %}
+        var propertyLocation = {lat: {{ property.address.latitude}}, lng: {{ property.address.longitude}}};
+        var map = new google.maps.Map(document.getElementById('gmaps-marker'), {
+          center: propertyLocation,
+          zoom: 8
+        });
+        var marker = new google.maps.Marker({
+          position: propertyLocation,
+          map: map,
+          title: '{{ property.address }}',
+          url: {{ url_for('deals.view', property_id=property.id) }}
+        });
+      {% endif %}
+    {% endif %}
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW06EkRn-nhTFtmqjiPsQN_1GBsI9Lh2Q&callback=initMap"

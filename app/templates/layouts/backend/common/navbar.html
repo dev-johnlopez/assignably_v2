@@ -119,6 +119,9 @@
                                 <a href="{{ url_for('marketing.index') }}"><i class="mdi mdi-account-multiple"></i>Marketing</a>
                             </li>
                             <li class="has-submenu">
+                                <a href="{{ url_for('leads.all') }}"><i class="mdi mdi-account-multiple"></i>Leads</a>
+                            </li>
+                            <li class="has-submenu">
                                 <a href="{{ url_for('upload.index') }}"><i class="mdi mdi-account-multiple"></i>Upload</a>
                             </li>
                             {% if current_user.is_admin() %}

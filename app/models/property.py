@@ -32,16 +32,16 @@ class Property(db.Model, AuditMixin):
 
     def addOwner(self, contact):
         if contact is not None:
-            if not self.hasContactWithRole(contact, "Owner"):
-                self.contacts.append(PropertyContact(contact=contact, roles=[PropertyContactRole(role=int(CONTACT_ROLE_CONSTANTS.OWNER))]))
+            if not self.hasContactWithRole(contact, int(CONTACT_ROLE_CONSTANTS.OWNER)):
+                self.contacts.append(PropertyContact(contact=contact, roles=[PropertyContactRole(type=int(CONTACT_ROLE_CONSTANTS.OWNER))]))
 
     def addOwners(self, owners):
         for owner in owners:
             self.addOwner(owner)
 
-    def hasContactWithRole(self, contact, role_str):
+    def hasContactWithRole(self, contact, role_code):
         for property_contact in self.contacts:
-            if property_contact.hasRole(role_str) and property_contact.contact == contact:
+            if property_contact.hasRole(role_code) and property_contact.contact == contact:
                 return True
         return False
 
@@ -116,11 +116,10 @@ class PropertyContact(db.Model, AuditMixin):
     property = db.relationship("Property", back_populates="contacts")
     contact_id = db.Column(db.Integer, db.ForeignKey('contact.id'))
     contact = db.relationship("Contact")
-    role = db.Column(db.String(255))
     roles = db.relationship("PropertyContactRole")
 
     def addOwnerRole(self):
-        role = PropertyContactRole(role=int(CONTACT_ROLE_CONSTANTS.OWNER))
+        role = PropertyContactRole(type=int(CONTACT_ROLE_CONSTANTS.OWNER))
         self.addRole(role)
         db.session.add(role)
 
@@ -129,14 +128,14 @@ class PropertyContact(db.Model, AuditMixin):
             self.roles = []
         self.roles.append(role)
 
-    def hasRole(self, role_str):
+    def hasRole(self, role_code):
         for role in self.roles:
-            if role.role == role_str:
+            if role.type == role_code:
                 return True
         return False
 
     def getAllRoleNames(self):
-        return ', '.join([str(role.role) for role in self.roles])
+        return ', '.join([str(role.getRoleType()) for role in self.roles])
 
 class PropertyContactRole(db.Model, AuditMixin):
     __tablename__ = "property_contact_role"
@@ -144,5 +143,5 @@ class PropertyContactRole(db.Model, AuditMixin):
     property_contact_id = db.Column(db.Integer, db.ForeignKey('property_contact.id'))
     type = db.Column(db.Integer)
 
-    def getRole(self):
-        return CONTACT_ROLE_CONSTANTS.CONTACT_ROLE[self.role]
+    def getRoleType(self):
+        return CONTACT_ROLE_CONSTANTS.CONTACT_ROLE[self.type]
