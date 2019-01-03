@@ -1,4 +1,4 @@
-{% extends 'deals/layout/template.html' %}
+{% extends 'proformas/layout/template.html' %}
 {% set data_mask = 1 %}
 {% set active_page = "proforma" %}
 {% block content %}
@@ -8,7 +8,7 @@
         <div class="page-title-box">
             <div class="btn-group pull-right">
                 <ol class="breadcrumb hide-phone p-0 m-0">
-                    <li class="breadcrumb-item"><a href="#">Property</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('deals.view', property_id=property.id) }}">Property</a></li>
                     <li class="breadcrumb-item active">Add Proforma</li>
                 </ol>
             </div>
@@ -17,6 +17,6 @@
     </div>
 </div>
 
-{% include 'deals/forms/proforma.html' %}
+{% include 'proformas/forms/proforma.html' %}
 
 {% endblock %}

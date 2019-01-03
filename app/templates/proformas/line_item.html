@@ -1,0 +1,24 @@
+{% extends 'proformas/layout/template.html' %}
+{% set active_page = "details" %}
+{% block content %}
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group pull-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                  <li class="breadcrumb-item"><a href="{{ url_for('deals.view', property_id=proforma.property_id) }}">Property</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url_for('proformas.view', proforma_id=proforma.id) }}">Proforma</a></li>
+                  <li class="breadcrumb-item active">Add {{ line_item_type }}</li>
+                </ol>
+            </div>
+            <h4 class="page-title">{{ property }}</h4>
+        </div>
+    </div>
+</div>
+
+
+{% include 'proformas/forms/line_item.html' %}
+
+
+{% endblock %}

@@ -23,6 +23,15 @@
   </div>
 {% endmacro %}
 
+{% macro render_static(field) %}
+  <div class="form-group row">
+    <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>
+    <div class="col-9">
+      {{ field(readonly="1", **kwargs)|safe }}
+    </div>
+  </div>
+{% endmacro %}
+
 {% macro render_monetary_field_with_errors(field) %}
 <div class="form-group row">
   <label for="{{ field.id }}" class="col-3 col-form-label">{{ field.label }}</label>

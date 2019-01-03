@@ -65,6 +65,7 @@ def create_app(config_class=Config):
         app.register_blueprint(marketing_bp, url_prefix="/marketing")
         app.register_blueprint(leads_bp, url_prefix="/leads")
         app.register_blueprint(deals_bp, url_prefix="/deals")
+        app.register_blueprint(proformas_bp, url_prefix="/proformas")
 
         from app.admin import create_admin
         admin = create_admin(app, db)

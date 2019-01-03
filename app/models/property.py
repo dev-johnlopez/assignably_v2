@@ -18,6 +18,7 @@ class Property(db.Model, AuditMixin):
     garage_desc = db.Column(db.String(255))
     last_sale_date = db.Column(db.Date)
     owner_occupied = db.Column(db.Boolean)
+    proformas = db.relationship('Proforma', back_populates="property")
 
     __mapper_args__ = {
         'polymorphic_identity':PROPERTY_CONSTANTS.OTHER,
@@ -44,6 +45,11 @@ class Property(db.Model, AuditMixin):
             if property_contact.hasRole(role_code) and property_contact.contact == contact:
                 return True
         return False
+
+    def addProforma(self, proforma):
+        if self.proformas is None:
+            self.proformas = []
+        self.proformas.append(proforma)
 
 class ResidentialProperty(Property):
 

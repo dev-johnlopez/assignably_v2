@@ -14,7 +14,7 @@
             <div class="pull-right">
               <a href="{{ url_for('deals.edit', property_id=property.id) }}" class="btn btn-primary">Edit</a>
               <a href="#" class="btn btn-danger">Delete</a>
-              <a href="{{ url_for('deals.add_proforma', property_id=property.id) }}" class="btn btn-primary">Add Proforma</a>
+              <a href="{{ url_for('proformas.create', property_id=property.id) }}" class="btn btn-primary">Add Proforma</a>
               <button id="#" class="btn btn-success export-buyers">Export Buyers</button>
               <a href="#" class="btn btn-success">Email</a>
             </div>
@@ -40,31 +40,36 @@
   </div>
 </div>
 <div class="row-fluid mt-3">
-  <div class="card">
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for contact in property.contacts %}
+  <div class="col-lg-6">
+    <div class="card">
+      <table class="table">
+        <thead class="thead-dark">
           <tr>
-            <th scope="row">1</th>
-            <td>{{ contact.contact }}</td>
-            <td>{{ contact.getAllRoleNames() }}</td>
-            <td class="actions">
-                <a href="{{ url_for('leads.view', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
-                <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+            <th scope="col">Actions</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for contact in property.contacts %}
+            <tr>
+              <th scope="row">1</th>
+              <td>{{ contact.contact }}</td>
+              <td>{{ contact.getAllRoleNames() }}</td>
+              <td class="actions">
+                  <a href="{{ url_for('leads.view', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+                  <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                  <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    {% include 'deals/widgets/proformas.html' %}
   </div>
 </div>
 {% endblock %}

@@ -23,3 +23,7 @@ from . import leads
 deals_bp = Blueprint('deals', __name__)
 
 from . import deals
+
+proformas_bp = Blueprint('proformas', __name__)
+
+from . import proformas

@@ -4,6 +4,7 @@ from app.views import deals_bp as bp
 from app.forms.search import SearchForm
 from flask_security import current_user
 from app.models.property import PropertyContact, Property
+from app.models.proforma import Proforma
 from app.forms.property import PropertyForm
 from app.forms.proforma import ProformaForm
 from app.forms.search import PropertySearchForm
@@ -56,16 +57,5 @@ def edit(property_id):
         return redirect(url_for('deals.view', property_id=property_id))
     return render_template('deals/edit.html',
                             title="Edit",
-                            property=property,
-                            form=form)
-
-@bp.route('/<property_id>/profroma/add', methods=['GET', 'POST'])
-def add_proforma(property_id):
-    property = Property.query.get(property_id)
-    form = ProformaForm()
-    if form.validate_on_submit():
-        return redirect(url_for('deals.view', property_id=property_id))
-    return render_template('deals/proforma.html',
-                            title="Add Proforma",
                             property=property,
                             form=form)

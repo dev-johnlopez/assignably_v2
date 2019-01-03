@@ -1,0 +1,27 @@
+{% from "macros/_horizontal_form.html" import render_static %}
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <h4 class="text-dark  header-title m-t-0">Deal Info</h4>
+        <p class="text-muted m-b-25 font-13">
+            Details of the deal
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <a href="#" class="btn btn-primary pull-right">Edit</a>
+      </div>
+    </div>
+    {{ render_static(form.arv,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.purchase_price,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.seller_concessions,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.closing_costs,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.rent_ready_costs,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.initial_reserve_amount,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.lease_option_fee,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.total_finished_sq_foot,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.land_value_perc,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.income_tax_rate,type="text", class="form-control-plaintext", placeholder="") }}
+    {{ render_static(form.vacancy_perc,type="text", class="form-control-plaintext", placeholder="") }}
+  </div>
+</div>

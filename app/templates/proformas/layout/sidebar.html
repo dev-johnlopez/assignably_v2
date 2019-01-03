@@ -1,0 +1,60 @@
+<nav class="col-md-2 d-block d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        {% if proforma is defined %}
+          {% set property_id = proforma.property_id %}
+        {% else %}
+          {% set property_id = property.id %}
+        {% endif %}
+        <a class="nav-link {% if active_page == "summary" %} active {% endif %}" href="{{ url_for('deals.view', property_id=property_id) }}">
+          <span data-feather="home"></span>
+          Summary <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == "details" %} active {% endif %}" href="#">
+          <span data-feather="home"></span>
+          Details <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ul>
+
+    {#<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Actions</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        {% if active_page == "email" %}
+          <a class="nav-link active" href="#">
+            <span data-feather="home"></span>
+            Send to Buyers <span class="sr-only">(current)</span>
+          </a>
+        {% else %}
+          <a class="nav-link" href="#">
+            <span data-feather="home"></span>
+            Send to Buyers <span class="sr-only">(current)</span>
+          </a>
+        {% endif %}
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Export Options</span>
+      <a class="d-flex align-items-center text-muted" href="#">
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="file-text"></span>
+          Sample
+        </a>
+      </li>
+    </ul>#}
+  </div>
+</nav>

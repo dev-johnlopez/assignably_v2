@@ -1,0 +1,35 @@
+<div class="card-box">
+    <div class="row">
+      <div class="col-lg-6">
+        <h4 class="text-dark  header-title m-t-0">Income</h4>
+        <p class="text-muted m-b-25 font-13">
+            Revenue generated through this property
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <a href="{{ url_for('proformas.add_income', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Add</a>
+      </div>
+    </div>
+    <table class="table table-auto-res mb-0">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Frequency</th>
+            <th>Annual Increase (%)</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for line_item in proforma.income %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ line_item.type }}</td>
+                <td>{{ line_item.amount }}</td>
+                <td>{{ line_item.getFrequency() }}</td>
+                <td>{{ line_item.annual_increase_perc }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>

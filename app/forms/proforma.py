@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField, FormField, FieldList, BooleanField, SelectField
+from wtforms import IntegerField, DecimalField, FormField, FieldList, BooleanField, SelectField, StringField
 from wtforms.validators import DataRequired, Optional
 from app.forms.address import AddressForm
 from app.constants import proforma as PROFORMA_CONSTANTS
@@ -20,7 +20,7 @@ class FinancingForm(FlaskForm):
                             validators=[DataRequired()])
 
 class LineItemForm(FlaskForm):
-    type = IntegerField('Description',
+    type = StringField('Description',
                             description='A description of the line item.',
                             validators=[DataRequired()])
     amount = IntegerField('Amount',
@@ -33,7 +33,7 @@ class LineItemForm(FlaskForm):
                             validators=[DataRequired()])
     annual_increase_perc = DecimalField('Annual Increase Rate',
                             description='Annual expected increase.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
 
 class ProformaForm(FlaskForm):
     arv = IntegerField('ARV',
@@ -49,10 +49,7 @@ class ProformaForm(FlaskForm):
                             validators=[DataRequired()])
     seller_concessions = IntegerField('Seller Concessions',
                             description='Credit given to the buyer at closing by the seller.',
-                            validators=[DataRequired()])
-    down_payment_perc = DecimalField('Down Payment %',
-                            description='Percentage of the purchase price used as the down payment.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     closing_costs = IntegerField('Closing Costs',
                             description='Typical closing costs are 1-2%% of the purchase but can \
                                         vary widely. This field should include ALL closing costs \
@@ -63,46 +60,32 @@ class ProformaForm(FlaskForm):
                                         may include upcoming large expenses for which the \
                                         maintenance account will not be able to handle such \
                                         as roof, furnace, A/C, etc.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     initial_reserve_amount = IntegerField('Initial Reserve Amount',
                             description='The Initial Reserves planned to set aside for this \
                                         property. This can be very important to have in a \
                                         deal being done in a partnership.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     lease_option_fee = IntegerField('Lease Option Fee',
                             description='The Lease Option Fee is an up front fee paid by a \
                                         tenant buyer. The fee is typically non-refundable \
                                         and is usually applied towards their down payment or \
                                         purchase price if they purchase the house. (This \
                                         calculator applies it to the down payment if they \
-                                        purchase the property.)')
-    primary_loan_interest_rate = DecimalField('1st Loan Interest Rate',
-                            description='The interest rate of the loan.',
-                            validators=[DataRequired()])
-    primary_loan_length = IntegerField('1st Loan Length',
-                            description='The length of the loan in years.',
-                            validators=[DataRequired()])
-    secondary_loan_amount = DecimalField('2nd Loan Amount',
-                            description='The amount of the secondary loan.',
-                            validators=[DataRequired()])
-    secondary_loan_interest_rate = DecimalField('2nd Loan Interest Rate',
-                            description='The interest rate of the loan.',
-                            validators=[DataRequired()])
-    secondary_loan_length = IntegerField('2nd Loan Length',
-                            description='The length of the loan in years.',
-                            validators=[DataRequired()])
+                                        purchase the property.)',
+                            validators=[Optional()])
     total_finished_sq_foot = IntegerField('Total Finished Square Footage',
                             description='The total square footage area. Used to calculate \
                             the operating efficiency rate.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     land_value_perc = IntegerField('Land Value Percent',
                             description='The value of the land of the property being purchased. \
                             This is used to calculate depreciation as depreciation can only be \
                             taken on the improvements (buildings) and not on the land.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     income_tax_rate = DecimalField('Effective Income Tax Rate',
                             description='The buyer\'s effective tax rate.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
 
     vacancy_perc = DecimalField('Vacancy Rate',
                             description='Percent of time the property is expected to be vacant. the \
@@ -112,7 +95,7 @@ class ProformaForm(FlaskForm):
                                          you should probably ever use and that\'s only as an \
                                          experienced landlord. When in doubt, be conservative and use \
                                          a higher vacancy.',
-                            validators=[DataRequired()])
-    financing = FieldList(FormField(FinancingForm))
-    income_line_items = FieldList(FormField(LineItemForm))
-    expense_line_items = FieldList(FormField(LineItemForm))
+                            validators=[Optional()])
+    loans = FieldList(FormField(FinancingForm))
+    income = FieldList(FormField(LineItemForm))
+    expenses = FieldList(FormField(LineItemForm))

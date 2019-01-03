@@ -1,0 +1,21 @@
+<div class="card">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for proforma in property.proformas %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td class="actions">
+              <a href="{{ url_for('proformas.view', proforma_id=proforma.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+              <a href="{{ url_for('proformas.delete', proforma_id=proforma.id) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
