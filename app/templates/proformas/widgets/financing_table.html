@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="col-lg-6 pull-right">
-        <a href="#" class="btn btn-primary pull-right">Add</a>
+        <a href="{{ url_for('proformas.add_loan', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Add</a>
       </div>
     </div>
     <table class="table table-auto-res mb-0">
@@ -20,27 +20,25 @@
             <th>Interest Only</th>
             <th>Monthly Payment</th>
             <th>Annual Payments</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Conventional</td>
-            <td>$62,500</td>
-            <td>5.625%</td>
-            <td>No</td>
-            <td>$1,800</td>
-            <td>$21,600</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Private Money</td>
-            <td>$27,500</td>
-            <td>5.000%</td>
-            <td>Yes</td>
-            <td>$114.58</td>
-            <td>$1,375</td>
-        </tr>
+            {% for loan in proforma.loans %}
+              <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ loan.getType() }}</td>
+                  <td>{{ loan.amount|currency }}</td>
+                  <td>{{ loan.interest_rate }}</td>
+                  <td>{{ loan.interest_only }}</td>
+                  <td>{{ loan.getMonthlyPayment()|currency }}</td>
+                  <td>{{ loan.getAnnualPayment()|currency }}</td>
+                  <td class="actions">
+                      <a href="{{ url_for('proformas.edit_loan', loan_id=loan.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                      <a href="{{ url_for('proformas.delete_loan', loan_id=loan.id) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+                  </td>
+              </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

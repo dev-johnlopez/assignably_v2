@@ -112,7 +112,7 @@ def getOwnerRecordIfDuplicateExists(first_name, last_name, contact_type, mailing
     return None
 
 def mapAddress(dfRow, addressType):
-    house_number = str(dfRow["{} HOUSE NUMBER".format(addressType)]).strip()
+    #house_number = str(dfRow["{} HOUSE NUMBER".format(addressType)]).strip()
     line_1 = str(dfRow["{} ADDRESS".format(addressType)]).strip()
     city = str(dfRow["{} CITY".format(addressType)]).strip()
     state_code = str(dfRow["{} STATE".format(addressType)]).strip()

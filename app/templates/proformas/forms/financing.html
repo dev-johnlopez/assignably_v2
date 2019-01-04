@@ -1,24 +1,18 @@
 <form class="form-horizontal" method="post">
-  {% from "macros/_horizontal_form.html" import render_field_with_errors, render_monetary_field_with_errors, render_percent_field_with_errors %}
+  {% from "macros/_horizontal_form.html" import render_field_with_errors, render_year_field_with_errors, render_monetary_field_with_errors, render_percent_field_with_errors %}
   {{ form.hidden_tag() }}
   <div class="row mt-3">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-            Purchase Details
+            Financing Details
         </div>
         <div class="card-body">
-          {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.closing_costs,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.rent_ready_costs,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.initial_reserve_amount,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.lease_option_fee,type="text", class="form-control", placeholder="") }}
-          {{ render_field_with_errors(form.total_finished_sq_foot,type="text", class="form-control", placeholder="") }}
-          {{ render_percent_field_with_errors(form.land_value_perc,type="text", class="form-control", placeholder="") }}
-          {{ render_percent_field_with_errors(form.income_tax_rate,type="text", class="form-control", placeholder="") }}
-          {{ render_percent_field_with_errors(form.vacancy_perc,type="text", class="form-control", placeholder="") }}
+          {{ render_field_with_errors(form.type,type="select", class="form-control", placeholder="") }}
+          {{ render_monetary_field_with_errors(form.amount,type="text", class="form-control", placeholder="") }}
+          {{ render_percent_field_with_errors(form.interest_rate,type="text", class="form-control", placeholder="") }}
+          {{ render_field_with_errors(form.interest_only,type="checkbox", class="form-control", placeholder="") }}
+          {{ render_year_field_with_errors(form.length,type="text", class="form-control", placeholder="") }}
         </div>
       </div>
     </div>

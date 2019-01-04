@@ -1,0 +1,24 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Role</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contact in property.contacts %}
+      <tr>
+        <td>{{ loop.index }}</th>
+        <td>{{ contact.contact }}</td>
+        <td>{{ contact.getAllRoleNames() }}</td>
+        <td class="actions">
+            <a href="{{ url_for('leads.view', lead_id=contact.contact.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
+            <a href="#" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

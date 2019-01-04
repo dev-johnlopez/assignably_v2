@@ -82,8 +82,7 @@
         markers.push(new google.maps.Marker({
           position: {lat: {{ property.address.latitude }}, lng: {{ property.address.longitude}} },
           map: map,
-          title: '{{ property.address }}',
-          url: '{{ url_for('deals.view', property_id=property.id) }}'
+          title: '{{ property.address }}'
         }));
       {% endif %}
     {% endfor %}
@@ -104,8 +103,7 @@
         var marker = new google.maps.Marker({
           position: propertyLocation,
           map: map,
-          title: '{{ property.address }}',
-          url: {{ url_for('deals.view', property_id=property.id) }}
+          title: '{{ property.address }}'
         });
       {% endif %}
     {% endif %}

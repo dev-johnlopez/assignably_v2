@@ -5,7 +5,17 @@ from app.forms.address import AddressForm
 from app.constants import proforma as PROFORMA_CONSTANTS
 from app.models.address import Address
 
-class FinancingForm(FlaskForm):
+class LoanForm(FlaskForm):
+    type = SelectField('Loan Type',
+                            description='The type of loan used to purchase the property.',
+                            choices=[
+                                ('', ''),
+                                (str(PROFORMA_CONSTANTS.CONVENTIONAL), 'Conventional'),
+                                (str(PROFORMA_CONSTANTS.HARD_MONEY), 'Hard Money'),
+                                (str(PROFORMA_CONSTANTS.PRIVATE_MONEY), 'Private Money'),
+                                (str(PROFORMA_CONSTANTS.OTHER), 'Other')
+                            ],
+                            validators=[DataRequired()])
     amount = IntegerField('Loan Amount',
                             description='The amount of this this loan.',
                             validators=[DataRequired()])
@@ -14,7 +24,7 @@ class FinancingForm(FlaskForm):
                             validators=[DataRequired()])
     interest_only = BooleanField('Interest Only?',
                             description='Mark Yes if this is an interest only loan.',
-                            validators=[DataRequired()])
+                            validators=[Optional()])
     length = IntegerField('Length of Loan',
                             description='The length (in years) for this loan.',
                             validators=[DataRequired()])
@@ -96,6 +106,6 @@ class ProformaForm(FlaskForm):
                                          experienced landlord. When in doubt, be conservative and use \
                                          a higher vacancy.',
                             validators=[Optional()])
-    loans = FieldList(FormField(FinancingForm))
+    loans = FieldList(FormField(LoanForm))
     income = FieldList(FormField(LineItemForm))
     expenses = FieldList(FormField(LineItemForm))

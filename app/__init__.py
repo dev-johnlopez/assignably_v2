@@ -24,6 +24,8 @@ from flask_dance.consumer import OAuth2ConsumerBlueprint
 from flask_dance.consumer import oauth_authorized
 from elasticsearch import Elasticsearch
 import rq
+import locale
+
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -35,6 +37,7 @@ geolocator = Nominatim(user_agent='Assignably')
 
 def create_app(config_class=Config):
         app = Flask(__name__)
+        locale.setlocale(locale.LC_ALL, "en_US")
         app.wsgi_app = ProxyFix(app.wsgi_app)
         app.config.from_object(config_class)
         app.redis = Redis.from_url(app.config['REDIS_URL'])
@@ -90,9 +93,3 @@ def create_app(config_class=Config):
             app.logger.info('Assignably startup')
 
         return app
-
-#from app.models.role import Role
-#from app.models.user import User
-#from app.models.task import Task
-#from app.models.address import Address
-#from app.models.contact import Contact
