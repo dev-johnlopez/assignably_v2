@@ -1,0 +1,27 @@
+{% include 'layouts/backend/common/header.html' %}
+
+  <body>
+
+      {% include 'layouts/backend/common/navbar.html' %}
+
+      <div class="wrapper">
+          <div class="container-fluid">
+            <div class="row">
+              {% include 'markets/layout/sidebar.html' %}
+              <div class="col-md-10 ml-sm-auto col-lg-10">
+                {% include 'layouts/backend/common/flash_messages.html' %}
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+          </div> <!-- end container -->
+      </div>
+      <!-- end wrapper -->
+
+
+      {% include 'layouts/backend/common/footer.html' %}
+
+
+      {% include 'layouts/backend/common/javascript.html' %}
+
+  </body>
+</html>

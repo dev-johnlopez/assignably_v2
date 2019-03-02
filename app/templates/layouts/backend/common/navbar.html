@@ -41,7 +41,7 @@
                                 </form>
                             </li>
                             {% endif %}
-                            <li class="list-inline-item dropdown notification-list">
+                            {#<li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
                                     <i class="mdi mdi-bell noti-icon"></i>
@@ -67,7 +67,7 @@
                                     </a>
 
                                 </div>
-                            </li>
+                            </li>#}
                             <li class="list-inline-item dropdown notification-list">
                                 <a class="nav-link dropdown-toggle waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
@@ -114,6 +114,9 @@
                         <ul class="navigation-menu">
                             <li class="has-submenu">
                                 <a href="{{ url_for('dashboard.index') }}"><i class="mdi mdi-desktop-mac"></i>Dashboard</a>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="{{ url_for('markets.index') }}"><i class="mdi mdi-chart-line"></i>Market Data</a>
                             </li>
                             <li class="has-submenu">
                                 <a href="{{ url_for('marketing.index') }}"><i class="mdi mdi-account-multiple"></i>Marketing</a>

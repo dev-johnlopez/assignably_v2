@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {% if active_page == "details" %} active {% endif %}" href="#">
+        <a class="nav-link {% if active_page == "details" %} active {% endif %}" href="{{ url_for('proformas.details', proforma_id=proforma.id) }}">
           <span data-feather="home"></span>
           Details <span class="sr-only">(current)</span>
         </a>

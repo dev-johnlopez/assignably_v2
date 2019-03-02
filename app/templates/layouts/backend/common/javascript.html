@@ -149,3 +149,78 @@ async defer></script>
 
 <!-- Mustache JS -->
 <script src="{{ url_for('static', filename='backend/js/mustache.min.js') }}"></script>
+
+{% if nvd3 %}
+<!-- Nvd3 js -->
+<script src="{{ url_for('static', filename='backend/plugins/d3/d3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/nvd3/build/nv.d3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/d3/d3-time-format.min.js') }}"></script>
+<script type="text/javascript">
+  var parseDate = d3.timeParse("%m %Y");
+  var priceToRentChart;
+  var priceToRentChartData;
+  var data = [{
+    {% for record in data_records %}
+      values: [
+        {% for data_point in record.data_points %}
+          {x: parseDate("{{ data_point.getDate()}}"), y: "{{ data_point.value }}"}{{ "," if not loop.last }}
+        {% endfor %}
+        ],      //values - represents the array of {x,y} data points
+      key: '{{ record.region_name }}', //key  - the name of the series.
+      color: '#' + (Math.random()*(1<<24)|0).toString(16).slice(2,8)  //color - optional: choose your own line color.
+    }{{ ",{" if not loop.last }}
+    {% endfor %}
+  ];
+  nv.addGraph(function() {
+    priceToRentChart = nv.models.lineChart();
+    var height = 300;
+    priceToRentChart.useInteractiveGuideline(true);
+    priceToRentChart.xAxis.axisLabel('Month Year').tickFormat(d3.timeFormat("%m %Y"));
+    priceToRentChart.yAxis.axisLabel('Price-to-Rent Ratio').ticks(10);
+    priceToRentChartData = d3.select('.line-chart svg').attr('perserveAspectRatio', 'xMinYMid').datum(data);
+    priceToRentChartData.transition().duration(500).call(priceToRentChart);
+    nv.utils.windowResize(priceToRentChart.update);
+    return priceToRentChart;
+  });
+
+  $('#get-market-data').click(function() {
+    $.get('/markets/get/region_data', {
+      region_id: $('#region_id').children("option:selected").val()
+    }).done(function(response) {
+      var dataPointLength = response.dataPoints.length;
+      var values = [];
+      for (i = 0; i < dataPointLength; i++) {
+          values.push({
+            x: parseDate("" + response.dataPoints[i].month + " " + response.dataPoints[i].year),
+            y: response.dataPoints[i].value
+          });
+      }
+      data.push({
+        values: values,      //values - represents the array of {x,y} data points
+        key: response.region_name, //key  - the name of the series.
+        color: '#' + (Math.random()*(1<<24)|0).toString(16).slice(2,8)  //color - optional: choose your own line color.
+      });
+      priceToRentChartData.datum(data).transition().duration(500).call(priceToRentChart);
+      nv.utils.windowResize(priceToRentChart.update);
+    }).fail(function() {
+      alert('An error occurred.');
+    });
+  });
+
+</script>
+{% endif %}
+
+<script>
+  $('#region_type').change(function() {
+    $.get("{{ url_for('markets.regions') }}", { region_type:this.value }, function(data) {
+      var regionLength = data.regions.length;
+      $('#region_id').find('option').remove();
+      var option = new Option("Select a value", null);
+      $('#region_id').append($(option));
+      for(i=0; i<regionLength; i++) {
+        var option = new Option(data.regions[i].name, data.regions[i].id);
+        $('#region_id').append($(option));
+      }
+    });
+  });
+</script>

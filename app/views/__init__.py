@@ -27,3 +27,7 @@ from . import deals
 proformas_bp = Blueprint('proformas', __name__)
 
 from . import proformas
+
+markets_bp = Blueprint('markets', __name__)
+
+from . import markets

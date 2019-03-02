@@ -1,0 +1,49 @@
+{% extends 'markets/layout/template.html' %}
+{% set nvd3 = 1 %}
+{% block content %}
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group pull-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#">Minton</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Welcome !</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title end breadcrumb -->
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card-box">
+        <h4 class="m-t-0 header-title">Available Data Sets</h4>
+        <p class="text-muted font-14 m-b-20">
+            Click on a dataset to view additional Details.
+        </p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Dataset Title</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for data_set in data_sets %}
+              <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ data_set.getName() }}</td>
+                  <td><a href="{{ url_for('markets.dataset', dataset_type=data_set.type) }}">View</a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% macro render_field_with_errors(field) %}
   <div class="form-group row">
     <label for="{{ field.id }}" class="col-6 col-form-label">{{ field.label }}
-    {% if field.description is not none %}
+    {% if field.description is not none and field.description != "" %}
       <i class="fa fa-question-circle-o" data-toggle="tooltip" data-placement="right" title="{{ field.description }}"></i>
     {% endif %}
     </label>

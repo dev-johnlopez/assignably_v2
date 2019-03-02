@@ -1,0 +1,10 @@
+<h3>Data Set Upload</h3>
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {% from "macros/_horizontal_form.html" import render_field_with_errors %}
+    {{ render_field_with_errors(form.provider,class="form-control") }}
+    {{ render_field_with_errors(form.dataset_type,class="form-control") }}
+    {{ render_field_with_errors(form.region_type,class="form-control") }}
+    {{ form.file() }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>

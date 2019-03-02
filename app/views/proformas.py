@@ -21,6 +21,15 @@ def view(proforma_id):
                             proforma=proforma,
                             form=form)
 
+@bp.route('/<proforma_id>/details')
+def details(proforma_id):
+    proforma = Proforma.query.get(proforma_id)
+    form = ProformaForm(obj=proforma)
+    return render_template('proformas/view.html',
+                            title="View",
+                            proforma=proforma,
+                            form=form)
+
 @bp.route('/<proforma_id>/cashflow')
 def cashflow(proforma_id):
     proforma = Proforma.query.get(proforma_id)
@@ -41,6 +50,20 @@ def create(property_id):
         return redirect(url_for('deals.view', property_id=property_id))
     return render_template('proformas/create.html',
                             title="Add Proforma",
+                            property=property,
+                            form=form)
+
+@bp.route('/edit/<proforma_id>', methods=['GET', 'POST'])
+def edit(proforma_id):
+    proforma = Proforma.query.get(proforma_id)
+    form = ProformaForm(obj=proforma)
+    if form.validate_on_submit():
+        form.populate_obj(proforma)
+        db.session.add(proforma)
+        db.session.commit()
+        return redirect(url_for('deals.view', property_id=proforma.property_id))
+    return render_template('proformas/create.html',
+                            title="Edit Proforma",
                             property=property,
                             form=form)
 
@@ -73,7 +96,7 @@ def add_income(proforma_id):
 def edit_income(line_item_id):
     line_item = LineItem.query.get(line_item_id)
     proforma = Proforma.query.get(line_item.income_proforma_id)
-    form = LineItemForm(obj=line_item_type)
+    form = LineItemForm(obj=line_item)
     if form.validate_on_submit():
         form.populate_obj(line_item)
         db.session.add(line_item)
@@ -145,7 +168,7 @@ def add_loan(proforma_id):
 @bp.route('edit/loan/<loan_id>', methods=['GET', 'POST'])
 def edit_loan(loan_id):
     loan = Loan.query.get(loan_id)
-    proforma = loan.proforma
+    proforma = Proforma.query.get(loan.proforma_id)
     form = LoanForm(obj=loan)
     if form.validate_on_submit():
         form.populate_obj(loan)
@@ -165,6 +188,61 @@ def delete_loan(loan_id):
      db.session.commit()
      return redirect(url_for('proformas.view', proforma_id=proforma.id))
 
+@bp.route('<proforma_id>/add/captial_expenditure', methods=['GET', 'POST'])
+def add_capital_expenditure(proforma_id):
+    proforma = Proforma.query.get(proforma_id)
+    form = CapitalExpenditureForm()
+    if form.validate_on_submit():
+        capital_expenditure = CapitalExpenditure()
+        form.populate_obj(capital_expenditure)
+        proforma.addCapitalExpenditure(capital_expenditure)
+        db.session.add(proforma)
+        db.session.commit()
+        return redirect(url_for('proformas.view', proforma_id=proforma.id))
+    return render_template('proformas/capital_expenditure.html',
+                            title="Add Capital Expenditure",
+                            proforma=proforma,
+                            form=form)
+
+@bp.route('edit/capital_expenditure/<capital_expenditure_id>', methods=['GET', 'POST'])
+def edit_capital_expenditure(capital_expenditure_id):
+    capital_expenditure = CapitalExpenditure.query.get(capital_expenditure_id)
+    proforma = Proforma.query.get(capital_expenditure.proforma_id)
+    form = CapitalExpenditureForm(obj=capital_expenditure)
+    if form.validate_on_submit():
+        form.populate_obj(capital_expenditure)
+        db.session.add(capital_expenditure)
+        db.session.commit()
+        return redirect(url_for('proformas.view', proforma_id=proforma.id))
+    return render_template('proformas/capital_expenditure.html',
+                            title="Edit Captial Expenditure",
+                            proforma=proforma,
+                            form=form)
+
+@bp.route('/delete/capital_expenditure/<capital_expenditure_id>', methods=['GET', 'POST'])
+def delete_capital_expenditure(capital_expenditure_id):
+     capital_expenditure = CapitalExpenditure.query.get(capital_expenditure_id)
+     proforma = Proforma.query.get(capital_expenditure.proforma_id)
+     db.session.delete(capital_expenditure)
+     db.session.commit()
+     return redirect(url_for('proformas.view', proforma_id=proforma.id))
+
 @bp.app_template_filter()
 def currency(value):
+    if value is None:
+        return "$0.00"
     return locale.currency(value, grouping=True )
+
+@bp.app_template_filter()
+def percent(value):
+    if value is None:
+        return "0.00%"
+    if type(value) is float or type(value) is Decimal:
+        return "{}%".format(round(value, 2))
+    return value
+
+@bp.app_template_filter()
+def percent_display(value):
+    if value is None:
+        return "0.00%"
+    return "{}%".format(round(value*100, 2))

@@ -48,6 +48,9 @@
         <link href="{{ url_for('static', filename='backend/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
         {% endif %}
 
+        {% if nvd3 %}
+        <link href="{{ url_for('static', filename='backend/plugins/nvd3/build/nv.d3.min.css') }}" rel="stylesheet" type="text/css" />
+        {% endif %}
 
 
         <!-- App css -->

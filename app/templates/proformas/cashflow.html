@@ -22,14 +22,11 @@
   <div class="col-lg-12">
     <div class="card-box">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h4 class="text-dark  header-title m-t-0">Income Analysis</h4>
           <p class="text-muted m-b-25 font-13">
               Projected incomes for this property
           </p>
-        </div>
-        <div class="col-lg-6 pull-right">
-          <a href="{{ url_for('proformas.add_expense', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Add</a>
         </div>
       </div>
       <div class="table-responsive">
@@ -53,61 +50,61 @@
             <tbody>
               {% for line_item in proforma.income %}
                 <tr>
-                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc }} Increase per year</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(1)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(2)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(3)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(4)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(5)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(10)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(15)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(20)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(25)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(30)|currency }}</td>
-                    <td>{{ line_item.getCompoundingAmountByYear(35)|currency }}</td>
+                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc|percent }} Increase per year</td>
+                    <td>{{ line_item.getAnnualizedAmount(1)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(2)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(3)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(4)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(5)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(10)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(15)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(20)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(25)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(30)|currency }}</td>
+                    <td>{{ line_item.getAnnualizedAmount(35)|currency }}</td>
                 </tr>
               {% endfor %}
               <tr>
                 <td><b>Gross Scheduled Income</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(1)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(2)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(3)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(4)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(5)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(10)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(15)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(20)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(25)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(30)|currency }}</b></td>
-                <td><b>{{ proforma.getGrossScheduledIncomeByYear(35)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(1)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(2)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(3)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(4)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(5)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(10)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(15)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(20)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(25)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(30)|currency }}</b></td>
+                <td><b>{{ proforma.getGrossScheduledIncome(35)|currency }}</b></td>
               </tr>
               <tr>
-                <td>Vacancy Loss<br /><i>({{ proforma.vacancy_perc }}% per year)</i></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(1) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(2) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(3) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(4) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(5) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(10) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(15) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(20) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(25) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(30) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(35) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td>Vacancy Loss<br /><i>({{ proforma.vacancy_perc|percent }}% per year)</i></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(1) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(2) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(3) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(4) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(5) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(10) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(15) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(20) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(25) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(30) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(35) * (proforma.vacancy_perc/100))|currency }})</p></td>
               </tr>
               <tr>
                 <td>Gross Operating Income</td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(1)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(2)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(3)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(4)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(5)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(10)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(15)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(20)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(25)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(30)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(35)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(1)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(2)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(3)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(4)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(5)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(10)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(15)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(20)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(25)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(30)|currency }}</p></td>
+                <td><p class="text-success">{{ proforma.getGrossOperatingIncome(35)|currency }}</p></td>
               </tr>
             </tbody>
         </table>
@@ -120,14 +117,11 @@
   <div class="col-lg-12">
     <div class="card-box">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <h4 class="text-dark  header-title m-t-0">Expense Analysis</h4>
           <p class="text-muted m-b-25 font-13">
               Projected expenses for this property
           </p>
-        </div>
-        <div class="col-lg-6 pull-right">
-          <a href="{{ url_for('proformas.add_expense', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Add</a>
         </div>
       </div>
       <div class="table-responsive">
@@ -151,90 +145,364 @@
             <tbody>
               {% for line_item in proforma.expenses %}
                 <tr>
-                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc }} Increase per year</td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(1)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(2)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(3)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(4)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(5)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(10)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(15)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(20)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(25)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(30)|currency }})</p></td>
-                    <td><p class="text-danger">({{ line_item.getCompoundingAmountByYear(35)|currency }})</p></td>
+                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc|percent }} Increase per year</td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(1)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(2)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(3)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(4)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(5)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(10)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(15)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(20)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(25)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(30)|currency }})</p></td>
+                    <td><p class="text-danger">({{ line_item.getAnnualizedAmount(35)|currency }})</p></td>
                 </tr>
               {% endfor %}
               <tr>
                 <td><b>Operating Expenses</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(1)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(2)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(3)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(4)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(5)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(10)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(15)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(20)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(25)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(30)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpensesByYear(35)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(1)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(2)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(3)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(4)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(5)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(10)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(15)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(20)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(25)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(30)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenses(35)|currency }}</b></td>
               </tr>
               <tr>
-              <tr>
                 <td><b>Operating Ratio</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(1)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(2)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(3)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(4)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(5)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(10)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(15)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(20)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(25)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(30)|currency }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatioByYear(35)|currency }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(1)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(2)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(3)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(4)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(5)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(10)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(15)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(20)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(25)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(30)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(35)|percent_display }}</b></td>
               </tr>
               <tr>
                 <td><b>Break Even Ratio</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(1)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(2)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(3)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(4)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(5)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(10)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(15)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(20)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(25)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(30)|currency }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatioByYear(35)|currency }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(1)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(2)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(3)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(4)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(5)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(10)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(15)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(20)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(25)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(30)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(35)|percent_display }}</b></td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-lg-12">
+    <div class="card-box">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="text-dark  header-title m-t-0">Cash On Cash Return</h4>
+          <p class="text-muted m-b-25 font-13">
+              Detailed cashflow analysis
+          </p>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>10</th>
+                <th>15</th>
+                <th>20</th>
+                <th>25</th>
+                <th>30</th>
+                <th>35</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Net Operating Income</b></td>
+                <td>{{ proforma.getNetOperatingIncome(1)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(2)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(3)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(4)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(5)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(10)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(15)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(20)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(25)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(30)|currency }}</td>
+                <td>{{ proforma.getNetOperatingIncome(35)|currency }}</td>
+              </tr>
+              {% for loan in proforma.loans %}
+                <tr>
+                  <td>Debt Service <br />Loan {{ loop.index }}</td>
+                  {% set payment = loan.getAnnualPayment(1) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(2) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(3) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(4) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(5) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(10) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(15) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(20) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(25) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(30) %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                  {% set payment = loan.getAnnualPayment(35)  %}
+                  {% if payment > 0 %}
+                    <td><p class="text-danger">({{ payment|currency }})</p></td>
+                  {% else %}
+                    <td><p>$0.00</p></td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+              <tr>
+                <td>Annual Cash Flow</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(1)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(2)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(3)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(4)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(5)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(10)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(15)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(20)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(25)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(30)|currency }}</td>
+                <td>{{ proforma.getCashflowBeforeTaxes(35)|currency }}</td>
               </tr>
               <tr>
-                <td>Vacancy Loss<br /><i>({{ proforma.vacancy_perc }}% per year)</i></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(1) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(2) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(3) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(4) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(5) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(10) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(15) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(20) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(25) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(30) * (proforma.vacancy_perc/100))|currency }})</p></td>
-                <td><p class="text-danger">({{ (proforma.getGrossScheduledIncomeByYear(35) * (proforma.vacancy_perc/100))|currency }})</p></td>
+                <td>Monthly Cash Flow</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(1)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(2)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(3)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(4)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(5)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(10)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(15)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(20)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(25)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(30)/12)|currency }}</td>
+                <td>{{ (proforma.getCashflowBeforeTaxes(35)/12)|currency }}</td>
               </tr>
               <tr>
-                <td>Gross Operating Income</td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(1)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(2)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(3)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(4)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(5)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(10)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(15)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(20)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(25)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(30)|currency }}</p></td>
-                <td><p class="text-success">{{ proforma.getGrossOperatingIncomeByYear(35)|currency }}</p></td>
+                <td>Cash on Cash ROI</td>
+                <td>{{ proforma.getCashOnCashReturn(1)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(2)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(3)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(4)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(5)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(10)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(15)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(20)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(25)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(30)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturn(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Capital Expenditures</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(1)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(2)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(3)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(4)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(5)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(10)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(15)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(20)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(25)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(30)|currency }}</td>
+                <td>{{ proforma.getCapitalExpenditureAmount(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Annual Cashflow after CapEx</td>
+                <td>{{ proforma.getCashflowAfterCapEx(1)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(2)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(3)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(4)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(5)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(10)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(15)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(20)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(25)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(30)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Cash on Cash ROI (after CapEx)</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(1)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(2)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(3)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(4)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(5)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(10)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(15)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(20)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(25)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(30)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnAfterCapex(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Depreciation Amount</td>
+                <td>{{ proforma.getDepreciationAmount(1)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(2)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(3)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(4)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(5)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(10)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(15)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(20)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(25)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(30)|currency }}</td>
+                <td>{{ proforma.getDepreciationAmount(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Cashflow from Depreciation</td>
+                <td>{{ proforma.getCashflowFromDepreciation(1)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(2)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(3)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(4)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(5)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(10)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(15)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(20)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(25)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(30)|currency }}</td>
+                <td>{{ proforma.getCashflowFromDepreciation(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Annual Cashflow with Depreciation</td>
+                <td>{{ proforma.getCashflowWithDepreciation(1)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(2)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(3)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(4)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(5)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(10)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(15)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(20)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(25)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(30)|currency }}</td>
+                <td>{{ proforma.getCashflowWithDepreciation(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Cash on Cash ROI (incl. Depreciation)</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(1)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(2)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(3)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(4)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(5)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(10)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(15)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(20)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(25)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(30)|percent }}</td>
+                <td>{{ proforma.getCashOnCashReturnIncludingDepreciation(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Debt Service Coverage Ratio</td>
+                <td>{{ proforma.getDebtCoverageRatio(1)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(2)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(3)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(4)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(5)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(10)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(15)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(20)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(25)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(30)|percent }}</td>
+                <td>{{ proforma.getDebtCoverageRatio(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Gross Rent Multiplier</td>
+                <td>{{ proforma.getGrossRentMultiplier(1)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(2)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(3)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(4)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(5)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(10)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(15)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(20)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(25)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(30)|round(2) }}</td>
+                <td>{{ proforma.getGrossRentMultiplier(35)|round(2) }}</td>
+              </tr>
+              <tr>
+                <td>Cap Rate</td>
+                <td>{{ proforma.getCapitalizationRate(1)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(2)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(3)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(4)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(5)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(10)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(15)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(20)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(25)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(30)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(35)|percent_display }}</td>
               </tr>
             </tbody>
         </table>

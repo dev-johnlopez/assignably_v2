@@ -29,7 +29,7 @@
                   <td>{{ loop.index }}</td>
                   <td>{{ loan.getType() }}</td>
                   <td>{{ loan.amount|currency }}</td>
-                  <td>{{ loan.interest_rate }}</td>
+                  <td>{{ loan.interest_rate|percent }}</td>
                   <td>{{ loan.interest_only }}</td>
                   <td>{{ loan.getMonthlyPayment()|currency }}</td>
                   <td>{{ loan.getAnnualPayment()|currency }}</td>

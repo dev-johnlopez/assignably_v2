@@ -45,6 +45,17 @@ class LineItemForm(FlaskForm):
                             description='Annual expected increase.',
                             validators=[Optional()])
 
+class CapitalExpenditureForm(FlaskForm):
+    type = StringField('Description',
+                            description='A description of the capital expenditure.',
+                            validators=[DataRequired()])
+    replacement_cost = IntegerField('Replacement Cost',
+                            description='How much it costs for this expenditure.',
+                            validators=[DataRequired()])
+    lifespan = IntegerField('Lifespan',
+                            description='The length in years until this expense occurs.',
+                            validators=[DataRequired()])
+
 class ProformaForm(FlaskForm):
     arv = IntegerField('ARV',
                             description='The ARV for must purchases is the Purchase Price. \
@@ -88,7 +99,7 @@ class ProformaForm(FlaskForm):
                             description='The total square footage area. Used to calculate \
                             the operating efficiency rate.',
                             validators=[Optional()])
-    land_value_perc = IntegerField('Land Value Percent',
+    land_value_perc = DecimalField('Land Value Percent',
                             description='The value of the land of the property being purchased. \
                             This is used to calculate depreciation as depreciation can only be \
                             taken on the improvements (buildings) and not on the land.',
@@ -109,3 +120,4 @@ class ProformaForm(FlaskForm):
     loans = FieldList(FormField(LoanForm))
     income = FieldList(FormField(LineItemForm))
     expenses = FieldList(FormField(LineItemForm))
+    capital_expenditures = FieldList(FormField(CapitalExpenditureForm))

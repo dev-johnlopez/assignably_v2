@@ -9,19 +9,52 @@
         </p>
       </div>
       <div class="col-lg-6">
-        <a href="#" class="btn btn-primary pull-right">Edit</a>
+        <a href="{{ url_for('proformas.edit', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Edit</a>
       </div>
     </div>
-    {{ render_static(form.arv,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.purchase_price,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.seller_concessions,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.closing_costs,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.rent_ready_costs,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.initial_reserve_amount,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.lease_option_fee,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.total_finished_sq_foot,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.land_value_perc,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.income_tax_rate,type="text", class="form-control-plaintext", placeholder="") }}
-    {{ render_static(form.vacancy_perc,type="text", class="form-control-plaintext", placeholder="") }}
+    <dl class="row">
+      <dt class="col-4">ARV</dt>
+      <dd class="col-8">{{ proforma.arv|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Purchase Price</dt>
+      <dd class="col-8">{{ proforma.purchase_price|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Seller Concessions</dt>
+      <dd class="col-8">{{ proforma.seller_concessions|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Closing Costs</dt>
+      <dd class="col-8">{{ proforma.closing_costs|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Rent Ready Costs</dt>
+      <dd class="col-8">{{ proforma.rent_ready_costs|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Initial Reserves</dt>
+      <dd class="col-8">{{ proforma.initial_reserve_amount|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Lease Option Fee</dt>
+      <dd class="col-8">{{ proforma.lease_option_fee|currency }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Total Finished Sq. Foot</dt>
+      <dd class="col-8">{{ proforma.total_finished_sq_foot }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Land Value (%)</dt>
+      <dd class="col-8">{{ proforma.land_value_perc|percent }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Income Tax Rate</dt>
+      <dd class="col-8">{{ proforma.income_tax_rate|percent }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Vacancy (%)</dt>
+      <dd class="col-8">{{ proforma.vacancy_perc|percent }}</dd>
+    </dl>
   </div>
 </div>

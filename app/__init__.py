@@ -65,6 +65,7 @@ def create_app(config_class=Config):
         app.register_blueprint(dashboard_bp)
         app.register_blueprint(errors_bp)
         app.register_blueprint(upload_bp, url_prefix="/import")
+        app.register_blueprint(markets_bp, url_prefix="/markets")
         app.register_blueprint(marketing_bp, url_prefix="/marketing")
         app.register_blueprint(leads_bp, url_prefix="/leads")
         app.register_blueprint(deals_bp, url_prefix="/deals")

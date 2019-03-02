@@ -14,5 +14,5 @@ MAIL_SERVER=mail.privateemail.com
 MAIL_PORT=587
 MAIL_USE_TLS=1
 MAIL_USERNAME=john@johnlopez.org
-MAIL_PASSWORD=Saintviator1??
+MAIL_PASSWORD=AB2020ab??
 MAIL_DEFAULT_SENDER=john@johnlopez.org
