@@ -8,6 +8,8 @@
             Purchase Details
         </div>
         <div class="card-body">
+          {{ render_field_with_errors(form.title, type="text", class="form-control", placeholder="") }}
+          {{ render_field_with_errors(form.description, type="text", class="form-control", placeholder="") }}
           {{ render_monetary_field_with_errors(form.arv,type="text", class="form-control", placeholder="") }}
           {{ render_monetary_field_with_errors(form.purchase_price,type="text", class="form-control", placeholder="") }}
           {{ render_monetary_field_with_errors(form.seller_concessions,type="text", class="form-control", placeholder="") }}
@@ -19,6 +21,8 @@
           {{ render_percent_field_with_errors(form.land_value_perc,type="text", class="form-control", placeholder="") }}
           {{ render_percent_field_with_errors(form.income_tax_rate,type="text", class="form-control", placeholder="") }}
           {{ render_percent_field_with_errors(form.vacancy_perc,type="text", class="form-control", placeholder="") }}
+          {{ render_percent_field_with_errors(form.property_appreciation_rate,type="text", class="form-control", placeholder="") }}
+          {{ render_percent_field_with_errors(form.sales_commission_rate,type="text", class="form-control", placeholder="") }}
         </div>
       </div>
     </div>

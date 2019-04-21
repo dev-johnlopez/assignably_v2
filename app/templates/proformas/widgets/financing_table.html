@@ -29,8 +29,8 @@
                   <td>{{ loop.index }}</td>
                   <td>{{ loan.getType() }}</td>
                   <td>{{ loan.amount|currency }}</td>
-                  <td>{{ loan.interest_rate|percent }}</td>
-                  <td>{{ loan.interest_only }}</td>
+                  <td>{{ loan.getInterestRate()|percent }}</td>
+                  <td>{% if loan.interest_only %}Yes{% else %}No{% endif %}</td>
                   <td>{{ loan.getMonthlyPayment()|currency }}</td>
                   <td>{{ loan.getAnnualPayment()|currency }}</td>
                   <td class="actions">

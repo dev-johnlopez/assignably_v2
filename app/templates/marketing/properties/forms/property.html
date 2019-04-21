@@ -1,5 +1,5 @@
 <form class="form-horizontal" method="post">
-  {% from "macros/_horizontal_form.html" import render_field_with_errors %}
+  {% from "macros/_horizontal_form.html" import render_field_with_errors, render_monetary_field_with_errors %}
   {{ form.hidden_tag() }}
   <h3>Address Details</h3>
   {% with form = form.address %}
@@ -9,6 +9,7 @@
   <h3>Property Details</h3>
   {{ render_field_with_errors(form.property_type, type="select", class="form-control") }}
   {{ render_field_with_errors(form.units, type="text", class="form-control") }}
+  {{ render_monetary_field_with_errors(form.property_tax, type="text", class="form-control") }}
   {{ render_field_with_errors(form.sq_feet, type="text", class="form-control") }}
   {{ render_field_with_errors(form.bedrooms, type="text", class="form-control") }}
   {{ render_field_with_errors(form.basement_desc, type="text", class="form-control") }}

@@ -2,6 +2,8 @@ from app import db
 from app.constants import propertytype as PROPERTY_CONSTANTS
 from app.constants import contactrole as CONTACT_ROLE_CONSTANTS
 from app.mixins.audit import AuditMixin
+from app.src.util.factory.proforma_factory import ProformaFactory
+from sqlalchemy import event
 
 class Property(db.Model, AuditMixin):
     __tablename__ = 'property'
@@ -10,6 +12,7 @@ class Property(db.Model, AuditMixin):
     address = db.relationship('Address', uselist=False)
     contacts = db.relationship("PropertyContact")
     property_type = db.Column(db.Integer)
+    property_tax = db.Column(db.Integer)
     units = db.Column(db.Integer, default=1)
     sq_feet = db.Column(db.Integer)
     bedrooms = db.Column(db.Integer)
@@ -50,6 +53,9 @@ class Property(db.Model, AuditMixin):
         if self.proformas is None:
             self.proformas = []
         self.proformas.append(proforma)
+
+    def canAutoEvaluate(self):
+        return self.bedrooms is not None and self.property_tax is not None
 
 class ResidentialProperty(Property):
 
@@ -151,3 +157,12 @@ class PropertyContactRole(db.Model, AuditMixin):
 
     def getRoleType(self):
         return CONTACT_ROLE_CONSTANTS.CONTACT_ROLE[self.type]
+
+def add_proformas(mapper, connection, target):
+    if target.canAutoEvaluate():
+        ProformaFactory.buildProfromasFromProperty(target)
+
+event.listen(Property, 'after_insert', add_proformas)
+event.listen(Property, 'after_update', add_proformas)
+event.listen(SingleFamilyProperty, 'after_insert', add_proformas)
+event.listen(SingleFamilyProperty, 'before_update', add_proformas)

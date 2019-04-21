@@ -1,4 +1,4 @@
-{% extends 'layouts/backend/content_no_sidebar.html' %}
+{% extends 'layouts/backend/template.html' %}
 {% block content %}
 {% include 'layouts/backend/common/flash_messages.html' %}
 
@@ -20,7 +20,7 @@
   </div>
 {% endwith %}
 
-{% with form = dataset_form %}
+{#{% with form = dataset_form %}
   {% include 'upload/forms/dataset_form.html' %}
 
 
@@ -32,6 +32,6 @@
     </div>
   </div>
   {% endfor %}
-{% endwith %}
+{% endwith %}#}
 
 {% endblock %}

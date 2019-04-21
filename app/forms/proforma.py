@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField, FormField, FieldList, BooleanField, SelectField, StringField
+from wtforms import IntegerField, DecimalField, FormField, FieldList, BooleanField, SelectField, StringField, HiddenField
 from wtforms.validators import DataRequired, Optional
 from app.forms.address import AddressForm
 from app.constants import proforma as PROFORMA_CONSTANTS
@@ -36,6 +36,10 @@ class LineItemForm(FlaskForm):
     amount = IntegerField('Amount',
                             description='The amount for this line item (always input positive values).',
                             validators=[DataRequired()])
+    amount_type = HiddenField('Amount Type',
+                            description='Determines if this is a Fixed or Percentage-based line item.',
+                            validators=[DataRequired()],
+                            default="Fixed")
     frequency = SelectField('Frequency', choices=[
                                         ('', ''),
                                         (str(PROFORMA_CONSTANTS.MONTHLY), 'Monthly'),
@@ -43,6 +47,10 @@ class LineItemForm(FlaskForm):
                             validators=[DataRequired()])
     annual_increase_perc = DecimalField('Annual Increase Rate',
                             description='Annual expected increase.',
+                            validators=[Optional()])
+    calculation = SelectField('Calculated From', choices=[
+                                        ('', ''),
+                                        ('GOI', 'GOI')],
                             validators=[Optional()])
 
 class CapitalExpenditureForm(FlaskForm):
@@ -57,6 +65,12 @@ class CapitalExpenditureForm(FlaskForm):
                             validators=[DataRequired()])
 
 class ProformaForm(FlaskForm):
+    title = StringField('Title',
+                            description='The title of this proforma.',
+                            validators=[DataRequired()])
+    description = StringField('Description',
+                            description='Details of this proforma.',
+                            validators=[Optional()])
     arv = IntegerField('ARV',
                             description='The ARV for must purchases is the Purchase Price. \
                                             If you are buying at a discount and the property is \
@@ -116,6 +130,12 @@ class ProformaForm(FlaskForm):
                                          you should probably ever use and that\'s only as an \
                                          experienced landlord. When in doubt, be conservative and use \
                                          a higher vacancy.',
+                            validators=[Optional()])
+    property_appreciation_rate = DecimalField('Appreciation Rate',
+                            description='The percentage in which this property will appreciate year over year.',
+                            validators=[Optional()])
+    sales_commission_rate = DecimalField('Sales Commission Rate',
+                            description='The anticipate commission rate paid when selling the property.',
                             validators=[Optional()])
     loans = FieldList(FormField(LoanForm))
     income = FieldList(FormField(LineItemForm))

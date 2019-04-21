@@ -1,8 +1,8 @@
-from flask import g, render_template, flash, redirect, url_for, request
+from flask import g, render_template, flash, redirect, url_for, request, Markup
 from app import db
 from app.views import deals_bp as bp
 from app.forms.search import SearchForm
-from flask_security import current_user
+from flask_security import current_user, login_required
 from app.models.property import PropertyContact, Property
 from app.models.proforma import Proforma
 from app.forms.property import PropertyForm
@@ -13,6 +13,7 @@ from app.forms.search import PropertySearchForm
 def before_request():
     g.search_form = SearchForm()
 
+@login_required
 @bp.route('/all', methods=['GET'])
 def all():
     properties = []
@@ -38,14 +39,19 @@ def all():
                             form=form,
                             properties=properties)
 
-
+@login_required
 @bp.route('/<property_id>')
 def view(property_id):
     property = Property.query.get(property_id)
+    if(property.property_tax is None):
+        flash(Markup('Property tax is unknown. <a href="{0}" class="alert-link">Click here to add property tax information</a>'.format(url_for('deals.edit', property_id=property.id))), 'info')
+    if(property.bedrooms is None):
+        flash(Markup('Number of Bedrooms is unknown. <a href="{0}" class="alert-link">Click here to add bedroom information</a>'.format(url_for('deals.edit', property_id=property.id))), 'info')
     return render_template('deals/view.html',
                             title="View",
                             property=property)
 
+@login_required
 @bp.route('/<property_id>/edit', methods=['GET', 'POST'])
 def edit(property_id):
     property = Property.query.get(property_id)
@@ -59,3 +65,11 @@ def edit(property_id):
                             title="Edit",
                             property=property,
                             form=form)
+
+@login_required
+@bp.route('/<property_id>/proformas')
+def proformas(property_id):
+    property = Property.query.get(property_id)
+    return render_template('deals/proformas.html',
+                            title="Profromas",
+                            property=property)

@@ -1,15 +1,16 @@
 import pandas as pd
 import numpy as np
 import datetime
-from app.models.datasets.dataset import DataRecord, DataPoint
+from app.models.market import Market, DataPoint
 
-def mapDataRecord(df, dfRow, dataset_type, region_type):
+def mapMarket(df, dfRow, dataset_type, region_type):
     #region_id = str(dfRow["RegionID"]) if "RegionID" in df.columns else None
-    data_record = getDataRecord(df, dfRow, region_type)
-    data_record = mapDataPoints(df, dfRow, data_record, dataset_type)
-    return data_record
+    market = getMarket(df, dfRow, dataset_type, region_type)
+    market.clearDataPoints(dataset_type=dataset_type)
+    market = mapDataPoints(df, dfRow, market, dataset_type)
+    return market
 
-def mapDataPoints(df, dfRow, data_record, dataset_type):
+def mapDataPoints(df, dfRow, market, dataset_type):
     d = datetime.date.today()
     current_year = d.year
     current_month = d.strftime('%m')
@@ -28,13 +29,13 @@ def mapDataPoints(df, dfRow, data_record, dataset_type):
                     month = month,
                     value = value
                 )
-                data_record.addDataPoint(data_point)
-    return data_record
+                market.addDataPoint(data_point)
+    return market
 
 def getValueByKey(df, dfRow, key):
     return str(dfRow[key]) if key in df.columns else None
 
-def getDataRecord(df, dfRow, region_type):
+def getMarket(df, dfRow, dataset_type, region_type):
     region_id = getValueByKey(df, dfRow, "RegionID")
     region_name = getValueByKey(df, dfRow, "RegionName")
     city = getValueByKey(df, dfRow, "City")
@@ -44,7 +45,7 @@ def getDataRecord(df, dfRow, region_type):
     size_rank = getValueByKey(df, dfRow, "SizeRank")
 
     #not all data sets have a region id. Need to query without. Size Rank can change
-    data_record = DataRecord.query.filter_by(
+    market = Market.query.filter_by(
         region_type = region_type,
         region_name = region_name,
         city = city,
@@ -53,8 +54,8 @@ def getDataRecord(df, dfRow, region_type):
         county = county
     ).first()
 
-    if data_record is None:
-        data_record = DataRecord(
+    if market is None:
+        market = Market(
             region_id = region_id,
             region_type = region_type,
             region_name = region_name,
@@ -65,6 +66,6 @@ def getDataRecord(df, dfRow, region_type):
             size_rank = size_rank
         )
     else:
-        data_record.size_rank = size_rank
+        market.size_rank = size_rank
 
-    return data_record
+    return market

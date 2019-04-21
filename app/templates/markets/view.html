@@ -1,0 +1,28 @@
+{% extends 'layouts/backend/template.html' %}
+{% set nvd3 = 1 %}
+{% set markets = [market] %}
+{% block sidebar %}{% include 'markets/layout/sidebar.html' %}{% endblock %}
+{% block content %}
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="btn-group pull-right">
+                <ol class="breadcrumb hide-phone p-0 m-0">
+                    <li class="breadcrumb-item"><a href="#">Minton</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Welcome !</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title end breadcrumb -->
+
+<div class="row">
+    <div class="col-sm-12">
+        {% include 'markets/widgets/price_to_rent_chart.html' %}
+    </div>
+</div>
+
+{% endblock %}

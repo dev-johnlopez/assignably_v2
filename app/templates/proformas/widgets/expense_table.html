@@ -7,7 +7,16 @@
         </p>
       </div>
       <div class="col-lg-6 pull-right">
-        <a href="{{ url_for('proformas.add_expense', proforma_id=proforma.id) }}" class="btn btn-primary pull-right">Add</a>
+        <!-- Example single danger button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add Expense
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url_for('proformas.add_fixed_expense', proforma_id=proforma.id) }}">Fixed Expense</a>
+            <a class="dropdown-item" href="{{ url_for('proformas.add_percent_expense', proforma_id=proforma.id) }}">Percentage-based Expense</a>
+          </div>
+        </div>
       </div>
     </div>
     <table class="table table-auto-res mb-0">
@@ -26,9 +35,9 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ line_item.type }}</td>
-                <td>{{ line_item.amount|currency }}</td>
+                <td>{{ line_item.getAmount()|currency }}</td>
                 <td>{{ line_item.getFrequency() }}</td>
-                <td>{{ line_item.annual_increase_perc|percent }}</td>
+                <td>{{ line_item.getAnnualIncreasePerc()|percent }}</td>
                 <td class="actions">
                     <a href="{{ url_for('proformas.edit_expense', line_item_id=line_item.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                     <a href="{{ url_for('proformas.delete_line_item', line_item_id=line_item.id) }}" class="on-default remove-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

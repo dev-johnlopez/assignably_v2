@@ -9,9 +9,14 @@
         </div>
         <div class="card-body">
           {{ render_field_with_errors(form.type,type="text", class="form-control", placeholder="") }}
-          {{ render_monetary_field_with_errors(form.amount,type="text", class="form-control", placeholder="") }}
-          {{ render_field_with_errors(form.frequency,type="select", class="form-control", placeholder="") }}
-          {{ render_percent_field_with_errors(form.annual_increase_perc,type="text", class="form-control", placeholder="") }}
+          {% if form.amount_type.data == "Percent" %}
+            {{ render_percent_field_with_errors(form.amount,type="text", class="form-control", placeholder="") }}
+            {{ render_field_with_errors(form.calculation,type="select", class="form-control", placeholder="") }}
+          {% else %}
+            {{ render_monetary_field_with_errors(form.amount,type="text", class="form-control", placeholder="") }}
+            {{ render_field_with_errors(form.frequency,type="select", class="form-control", placeholder="") }}
+            {{ render_percent_field_with_errors(form.annual_increase_perc,type="text", class="form-control", placeholder="") }}
+          {% endif %}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 {% extends 'proformas/layout/template.html' %}
-{% set data_mask = 1 %}
+{% set flot_chart = 1 %}
 {% set active_page = "proforma" %}
 {% block content %}
 <!-- Page-Title -->
@@ -17,28 +17,132 @@
     </div>
 </div>
 
-<div class="row mt-3">
-  <div class="col-lg-6">
-    {% include 'proformas/widgets/purchase_info.html' %}
+<div class="row mt-3 align-items-center">
+  <div class="col-lg-8">
+      <div class="portlet"><!-- /primary heading -->
+          <div class="portlet-heading">
+              <h3 class="portlet-title text-dark">
+                  Asset Performance
+              </h3>
+              <div class="portlet-widgets">
+                  {#<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                  <span class="divider"></span>
+                  <a data-toggle="collapse" data-parent="#accordion1" href="#portlet1"><i class="ion-minus-round"></i></a>
+                  <span class="divider"></span>
+                  <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>#}
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <div id="portlet1" class="panel-collapse collapse show">
+              <div class="portlet-body">
+                  <div id="website-stats" style="height: 320px;" class="flot-chart"></div>
+              </div>
+          </div>
+      </div>
   </div>
-  <div class="col-lg-6">
+
+  <div class="col-lg-4">
     <div class="row">
-      {% include 'proformas/widgets/income_table.html' %}
+      <div class="col-lg-12">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0">{{ proforma.purchase_price|currency }}</h3>
+            <p class="text-muted mb-0">Maximum Allowable Offer</p>
+        </div>
+      </div>
     </div>
     <div class="row">
-      {% include 'proformas/widgets/expense_table.html' %}
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getNetOperatingIncome()|currency }}</h3>
+            <p class="text-muted mb-0">NOI</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getEquity()|currency }}</h3>
+            <p class="text-muted mb-0">Equity</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getCapitalizationRate()|percent }}</h3>
+            <p class="text-muted mb-0">Cap Rate</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getReturnOnInvestment()|percent }}</h3>
+            <p class="text-muted mb-0">ROI</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<div class="row mt-3">
-  <div class="col-lg-12">
-    {% include 'proformas/widgets/financing_table.html' %}
+
+<div class="row mt-3 align-items-center">
+  <div class="col-lg-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0">{{ proforma.getNetOperatingIncome()|currency }}</h3>
+            <p class="text-muted mb-0">Net Operating Income</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getGrossOperatingIncome()|currency }}</h3>
+            <p class="text-muted mb-0">GOI</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getOperatingExpenses()|currency }}</h3>
+            <p class="text-muted mb-0">Op. Exp.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getDebtService()|currency }}</h3>
+            <p class="text-muted mb-0">Debt Service</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="widget-simple text-center card-box">
+            <h3 class="text-success font-bold mt-0 font-18">{{ proforma.getCashflowBeforeTaxes()|currency }}</h3>
+            <p class="text-muted mb-0">Cashflow</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+      <div class="portlet"><!-- /primary heading -->
+          <div class="portlet-heading">
+              <h3 class="portlet-title text-dark">
+                  Cashflow Analysis
+              </h3>
+              <div class="portlet-widgets">
+                  {#<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                  <span class="divider"></span>
+                  <a data-toggle="collapse" data-parent="#accordion1" href="#portlet1"><i class="ion-minus-round"></i></a>
+                  <span class="divider"></span>
+                  <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>#}
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <div id="portlet1" class="panel-collapse collapse show">
+              <div class="portlet-body">
+                  <div id="cashflow-analysis" style="height: 320px;" class="flot-chart"></div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
-<div class="row mt-3">
-  <div class="col-lg-12">
-    {% include 'proformas/widgets/capital_expenditure_table.html' %}
-  </div>
-</div>
+
 
 {% endblock %}

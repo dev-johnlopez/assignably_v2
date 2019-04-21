@@ -2,10 +2,13 @@ from app import db
 from app.mixins.audit import AuditMixin
 from app.constants import proforma as PROFORMA_CONSTANTS
 from decimal import Decimal, ROUND_HALF_UP
+import numpy
 
 class Proforma(db.Model, AuditMixin):
     __tablename__ = "proforma"
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    description = db.Column(db.String(5000))
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'))
     property = db.relationship("Property", back_populates="proformas")
     arv = db.Column(db.Integer)
@@ -18,7 +21,9 @@ class Proforma(db.Model, AuditMixin):
     total_finished_sq_foot = db.Column(db.Integer)
     land_value_perc = db.Column(db.Numeric(precision=5,scale=2))
     income_tax_rate = db.Column(db.Numeric(precision=5,scale=2))
+    property_appreciation_rate = db.Column(db.Numeric(precision=5,scale=2))
     vacancy_perc = db.Column(db.Numeric(precision=5,scale=2))
+    sales_commission_rate = db.Column(db.Numeric(precision=5,scale=2))
     loans = db.relationship('Loan')
     income = db.relationship('LineItem', foreign_keys="[LineItem.income_proforma_id]")
     expenses = db.relationship('LineItem', foreign_keys="[LineItem.expense_proforma_id]")
@@ -54,6 +59,18 @@ class Proforma(db.Model, AuditMixin):
         return self.purchase_price  + self.closing_costs \
                 + self.rent_ready_costs + self.initial_reserve_amount \
                 - self.getTotalLoanAmount()- self.seller_concessions
+
+    def getVacancyPercent(self):
+        return self.vacancy_perc / 100
+
+    def getLandValuePercent(self):
+        return self.land_value_perc / 100
+
+    def getIncomeTaxRate(self):
+        return self.income_tax_rate / 100
+
+    def getAppreciationRate(self):
+        return self.property_appreciation_rate / 100
 
     def getTotalLoanAmount(self):
         total_loan_amount = 0
@@ -134,14 +151,20 @@ class Proforma(db.Model, AuditMixin):
     def getCashflowWithDepreciation(self, year=None):
         return self.getCashflowAfterCapEx(year) + self.getCashflowFromDepreciation(year)
 
+    def getCumulativeCashflow(self, year=None):
+        if year is None or year == 1:
+            return self.getCashflowBeforeTaxes(1)
+        else:
+            return self.getCashflowBeforeTaxes(year) + self.getCumulativeCashflow(year-1)
+
     def getCashOnCashReturn(self, year=None):
-        return self.getCashflowAfterTaxes(year) / self.getInvestedCash() * 100
+        return self.getCashflowAfterTaxes(year) / self.getInvestedCash()
 
     def getCashOnCashReturnAfterCapex(self, year=None):
-        return self.getCashflowAfterCapEx(year) / self.getInvestedCash() * 100
+        return self.getCashflowAfterCapEx(year) / self.getInvestedCash()
 
     def getCashOnCashReturnIncludingDepreciation(self, year=None):
-        return self.getCashflowWithDepreciation(year) / self.getInvestedCash() * 100
+        return self.getCashflowWithDepreciation(year) / self.getInvestedCash()
 
     def getPricePerUnit(self):
         if self.property.units > 0:
@@ -182,6 +205,56 @@ class Proforma(db.Model, AuditMixin):
     def getReturnOnEquity(self, year=None):
         return self.getCashflowAfterTaxes(year) / self.getInvestedCash()
 
+    def getSalePrice(self, year=None):
+        if year > 0:
+            return self.arv * (1 + (self.property_appreciation_rate/100))**(year)
+        return self.arv
+
+    def getSalesCosts(self, year=None):
+        return self.getSalePrice(year) * self.sales_commission_rate/100
+
+    def getTotalProfit(self, year=None):
+        income = self.getSalePrice(year) + self.getCumulativeCashflow(year)
+        expenses = self.getInvestedCash() + self.lease_option_fee + self.getSalesCosts(year)
+        for loan in self.loans:
+            expenses += loan.getLoanBalance(year)
+        return income - expenses
+
+    def getReturnOnInvestment(self, year=None):
+        return self.getTotalProfit(year) / self.getInvestedCash()
+
+    def getAnnualizedROI(self, year=None):
+        if year is None or year == 0:
+            year = 1
+        return self.getReturnOnInvestment(year) / year
+
+    def getCompoundROI(self, year=None):
+        numerator = self.getTotalProfit(year) + self.getInvestedCash()
+        denominator = self.getInvestedCash()
+        return (((numerator/denominator)**(1/year)) - 1)
+
+    def getIRR(self, year=None):
+        irr_list = []
+        irr_list.append(-1*self.getInvestedCash())
+        period = 0
+        while period < year:
+            if period + 1 == year:
+                total_withdrawal = self.getInvestedCash() + self.getTotalProfit(year)
+                if year > 1:
+                    total_withdrawal -= self.getCumulativeCashflow(year - 1)
+                irr_list.append(total_withdrawal)
+            else:
+                irr_list.append(self.getCashflowBeforeTaxes(period + 1))
+            period += 1
+        return round(numpy.irr(irr_list), 5)
+
+    def getEquity(self, year=None):
+        if self.loans is not None:
+            return self.arv - sum(loan.getLoanBalance(year) for loan in self.loans)
+        else:
+            return self.arv
+
+
     #TODO - Cashflow calculations Chapter #32 and onward. http://www.wikisummaries.org/wiki/What_Every_Real_Estate_Investor_Needs_to_Know_about_Cash_Flow..._And_36_Other_Key_Financial_Measures#Chapter_6:_Calculation_1:_Simple_Interest
 
 
@@ -198,6 +271,20 @@ class Loan(db.Model, AuditMixin):
     def getType(self):
         return PROFORMA_CONSTANTS.LOAN_TYPE[self.type]
 
+    def getInterestRate(self):
+        return self.interest_rate/100
+
+    def getLoanBalance(self, year=None):
+        if self.interest_only:
+            return self.amount
+        pv = self.amount
+        pmt = self.getMonthlyPayment()
+        i = self.interest_rate/100 / 12
+        n = 0
+        if year is not None:
+            n = year*12
+        return pv*(1 + (i))**n - pmt * (((1+i)**n - 1)/i)
+
     def getDiscountFactor(self):
         rate_per_period = Decimal(self.interest_rate) / Decimal(100) / 12
         number_of_periods = Decimal(self.length*12)
@@ -207,7 +294,7 @@ class Loan(db.Model, AuditMixin):
         payment = 0
         present_value = Decimal(self.amount)
         if self.interest_only:
-            payment = present_value * Decimal(self.interest_rate) / Decimal(100) / 12
+            payment = present_value * self.getInterestRate() / 12
         else:
             payment = present_value / self.getDiscountFactor()
         cents = Decimal('.01')
@@ -226,20 +313,58 @@ class LineItem(db.Model, AuditMixin):
     expense_proforma_id = db.Column(db.Integer, db.ForeignKey('proforma.id'))
     type = db.Column(db.String(255))
     amount = db.Column(db.Integer, default=0)
+    amount_type = db.Column(db.String(50))
     frequency = db.Column(db.Integer)
     annual_increase_perc = db.Column(db.Numeric(precision=6,scale=2))
 
     def getFrequency(self):
         return PROFORMA_CONSTANTS.FREQUENCY_TYPE[self.frequency]
 
+    def getAmount(self):
+        return self.amount
+
     def getAnnualizedAmount(self, year=None):
         principal = self.amount * self.frequency
         if year is None:
             return principal
         rate = 0
-        if self.annual_increase_perc is not None:
-            rate = self.annual_increase_perc/100
+        if self.getAnnualIncreasePerc() is not None:
+            rate = self.getAnnualIncreasePerc()
         return principal * (1 + rate)**(year - 1)
+
+    def getAnnualIncreasePerc(self):
+        return self.annual_increase_perc / 100
+
+    def getProforma(self):
+        if self.income_proforma_id is not None:
+            return Proforma.query.get(self.income_proforma_id)
+        else:
+            return Proforma.query.get(self.expense_proforma_id)
+
+    __mapper_args__ = {
+        'polymorphic_identity':'Fixed',
+        'polymorphic_on':amount_type
+    }
+
+class PercentLineItem(LineItem):
+    calculation = db.Column(db.String(255))
+
+    __mapper_args__ = {
+        'polymorphic_identity':'Percent'
+    }
+
+    def getAnnualizedAmount(self, year=None):
+        return self.getAmount(year)
+
+    def getAmount(self, year=None):
+        return self.amount * self.getProforma().getGrossScheduledIncome(year) / 100
+
+    def getAnnualIncreasePerc(self):
+        return "N/a"
+
+
+    def __init__(self, **kwargs):
+        super(PercentLineItem, self).__init__(**kwargs)
 
 class CapitalExpenditure(db.Model, AuditMixin):
     __tablename__ = "capital_expenditure"

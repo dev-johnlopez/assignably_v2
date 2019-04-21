@@ -11,7 +11,7 @@ from app.models.address import Address
 from app.models.property import Property, PropertyContact
 from app.models.contact import Contact
 from app.models.note import Note
-from app.models.datasets.dataset import DataSet
+from app.models.market import Market
 from redis import Redis
 from flask_admin.contrib import rediscli
 
@@ -26,7 +26,7 @@ def create_admin(app, db):
     admin.add_view(MyModelView(User, db.session))
     admin.add_view(MyModelView(Role, db.session))
     admin.add_view(MyModelView(Task, db.session))
-    admin.add_view(MyModelView(DataSet, db.session))
+    admin.add_view(MyModelView(Market, db.session))
     #admin.add_view(MyModelView(Campaign, db.session))
     #admin.add_view(MyModelView(ExternalAccount, db.session))
     admin.add_view(rediscli.RedisCli(Redis()))

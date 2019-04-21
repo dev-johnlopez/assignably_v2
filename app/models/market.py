@@ -21,10 +21,10 @@ class Market(db.Model):
             self.data_points = []
         self.data_points.append(data_point)
 
-    def clearDataRecords(self, data_set_type=None):
+    def clearDataPoints(self, dataset_type=None):
         if self.data_points is None:
             pass
-        data_points = [data_point for data_point in self.data_points if data_point.type==data_set_type and data_set_type is not None]
+        data_points = [data_point for data_point in self.data_points if data_point.type==dataset_type and dataset_type is not None]
         for data_point in data_points:
             self.data_points.remove(data_point)
             db.session.delete(data_point)
@@ -64,6 +64,7 @@ class DataPoint(db.Model):
     def serialize(self):
        return {
             'id' :  self.id,
+            'type' : self.type,
             'year' : self.year,
             'month' : self.month,
             'value' : str(self.value)

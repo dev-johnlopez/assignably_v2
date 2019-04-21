@@ -1,5 +1,6 @@
-{% extends 'markets/layout/template.html' %}
+{% extends 'layouts/backend/template.html' %}
 {% set nvd3 = 1 %}
+{% block sidebar %}{% include 'markets/layout/sidebar.html' %}{% endblock %}
 {% block content %}
 <!-- Page-Title -->
 <div class="row">
@@ -36,8 +37,8 @@
             {% for data_set in data_sets %}
               <tr>
                   <th scope="row">{{ loop.index }}</th>
-                  <td>{{ data_set.getName() }}</td>
-                  <td><a href="{{ url_for('markets.dataset', dataset_type=data_set.type) }}">View</a></td>
+                  <td>{{ data_set['name'] }}</td>
+                  <td><a href="{{ url_for('markets.dataset', dataset_type=data_set['type']) }}">View</a></td>
               </tr>
             {% endfor %}
             </tbody>

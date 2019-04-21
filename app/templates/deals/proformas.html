@@ -1,6 +1,6 @@
-{% extends 'deals/layout/template.html' %}
-{% set datatable = 1 %}
+{% extends 'layouts/backend/template.html' %}
 {% set active_page = "proformas" %}
+{% set sidebar = "deal" %}
 {% block content %}
 <!-- Page-Title -->
 <div class="row">
@@ -17,42 +17,217 @@
     </div>
 </div>
 <!-- end page title end breadcrumb -->
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card-box">
-          <div class="row">
-            <div class="col-sm-10">
-                <h4 class="text-dark  header-title m-t-0">Proformas</h4>
-            </div>
-              <div class="col-sm-2">
-                  <div class="m-b-30">
-                      <a href="{{ url_for('deals.add_proforma', property_id=property.id) }}" class="btn btn-success btn-sm waves-effect waves-light">Add <i class="mdi mdi-plus-circle-outline"></i></a>
-                  </div>
-              </div>
-          </div>
 
-          <table class="table mb-0 table-responsive datatable">
-              <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for lead in leads %}
-                  <tr>
-                      <td>{{ loop.index }}</td>
-                      <td class="actions">
-                          <a href="{{ url_for('leads.view', lead_id=lead.id) }}" class="on-default edit-row" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-search-plus"></i></a>
-                      </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-          </table>
+{% for proforma in property.proformas %}
+<div class="row mt-3">
+  <div class="col-lg-12">
+    <div class="card-box d-flex flex-column">
+      <div class="row">
+        <div class="col-4 pt-4">
+          <div id="website-stats-{{ loop.index }}" style="height: 320px;" class="flot-chart"></div>
+        </div>
+        <div class="col-8">
+          <div class="row">
+            <h4 class="text-dark  header-title m-t-0">Proforma</h4>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{ proforma.arv|currency }} ARV</p>
+            </div>
+            <div class="col-md-6">
+              <p>{{ proforma.getNetOperatingIncome()|currency }} NOI</p>
+            </div>
+            <div class="col-md-6">
+              <p>{{ proforma.getEquity()|currency }} Equity</p>
+            </div>
+            <div class="col-md-6">
+              <p>{{ proforma.getCapitalizationRate()|percent }} Cap Rate</p>
+            </div>
+          </div>
+          <div class="row align-items-end">
+            <div class="btn-group align-self-end">
+              <button class="btn-primary">View</button>
+              <button class="btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-  <!-- end col -12 -->
 </div>
 <!-- end row -->
+{% endfor %}
 
+{% endblock %}
+
+{% block page_javascript %}
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.time.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.tooltip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.resize.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.pie.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.selection.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.stack.js') }}"></script>
+<script src="{{ url_for('static', filename='backend/plugins/flot-chart/jquery.flot.crosshair.js') }}"></script>
+<script>
+/**
+ * Theme: Minton Admin Template
+ * Author: Coderthemes
+ * Module/App: Flot-Chart
+ */
+
+! function($) {
+  "use strict";
+
+  var FlotChart = function() {
+    this.$body = $("body")
+    this.$realData = []
+  };
+
+  //creates plot graph
+  FlotChart.prototype.createPlotGraph = function(selector, data1, data2, labels, colors, borderColor, bgColor) {
+    //shows tooltip
+    function showTooltip(x, y, contents) {
+      $('<div id="tooltip" class="tooltipflot">' + contents + '</div>').css({
+        position : 'absolute',
+        top : y + 5,
+        left : x + 5
+      }).appendTo("body").fadeIn(200);
+    }
+
+
+    $.plot($(selector), [{
+      data : data1,
+      label : labels[0],
+      color : colors[0]
+    }, {
+      data : data2,
+      label : labels[1],
+      color : colors[1]
+    }], {
+      series : {
+        lines : {
+          show : true,
+          fill : true,
+          lineWidth : 1,
+          fillColor : {
+            colors : [{
+              opacity : 0.5
+            }, {
+              opacity : 0.5
+            }]
+          }
+        },
+        points : {
+          show : true
+        },
+        shadowSize : 0
+      },
+
+      grid : {
+        hoverable : true,
+        clickable : true,
+        borderColor : borderColor,
+        tickColor : "#f9f9f9",
+        borderWidth : 1,
+        labelMargin : 10,
+        backgroundColor : bgColor
+      },
+      legend : {
+        position : "nw",
+        margin : [0, -24],
+        noColumns : 0,
+        labelBoxBorderColor : null,
+        labelFormatter : function(label, series) {
+          // just add some space to labes
+          return '' + label + '&nbsp;&nbsp;';
+        },
+        width : 30,
+        height : 2
+      },
+      yaxis : {
+        tickColor : '#f5f5f5',
+        font : {
+          color : '#bdbdbd'
+        }
+      },
+      xaxis : {
+        tickColor : '#f5f5f5',
+        font : {
+          color : '#bdbdbd'
+        }
+      },
+      tooltip : true,
+      tooltipOpts : {
+        content : '%s: Year %x is $%y',
+        shifts : {
+          x : -60,
+          y : 25
+        },
+        defaultTheme : false
+      }
+    });
+  },
+
+  //initializing various charts and components
+  FlotChart.prototype.init = function() {
+    {% for proforma in property.proformas %}
+      //plot graph data
+      var equity_data = [
+        [1, {{ proforma.getEquity(1) }}],
+        [5, {{ proforma.getEquity(5) }}],
+        [10, {{ proforma.getEquity(10) }}],
+        [15, {{ proforma.getEquity(15) }}],
+        [20, {{ proforma.getEquity(20) }}]
+      ];
+      var roi_data = [
+        [1, {{ proforma.getTotalProfit(1) }}],
+        [5, {{ proforma.getTotalProfit(5) }}],
+        [10, {{ proforma.getTotalProfit(10) }}],
+        [15, {{ proforma.getTotalProfit(15) }}],
+        [20, {{ proforma.getTotalProfit(20) }}]
+      ];
+      var plabels = ["Equity Amount", "Total Profit"];
+      var pcolors = ['#ef5350', '#039cfd'];
+      var borderColor = '#f5f5f5';
+      var bgColor = '#fff';
+      this.createPlotGraph("#website-stats-{{ loop.index }}", equity_data, roi_data, plabels, pcolors, borderColor, bgColor);
+    {% endfor %}
+
+    {#var cumulative_data = [
+      [1, {{ proforma.getCumulativeCashflow(1) }}],
+      [5, {{ proforma.getCumulativeCashflow(5) }}],
+      [10, {{ proforma.getCumulativeCashflow(10) }}],
+      [15, {{ proforma.getCumulativeCashflow(15) }}],
+      [20, {{ proforma.getCumulativeCashflow(20) }}]
+    ];
+    var cashflow_data = [
+      [1, {{ proforma.getCashflowBeforeTaxes(1) }}],
+      [5, {{ proforma.getCashflowBeforeTaxes(5) }}],
+      [10, {{ proforma.getCashflowBeforeTaxes(10) }}],
+      [15, {{ proforma.getCashflowBeforeTaxes(15) }}],
+      [20, {{ proforma.getCashflowBeforeTaxes(20) }}]
+    ];
+    var plabels = ["Cumulative Cashflow", "Cashflow"];
+    var pcolors = ['#ef5350', '#039cfd'];
+    var borderColor = '#f5f5f5';
+    var bgColor = '#fff';
+    this.createPlotGraph("#cashflow-analysis", cumulative_data, cashflow_data, plabels, pcolors, borderColor, bgColor);#}
+
+  },
+
+  //init flotchart
+  $.FlotChart = new FlotChart, $.FlotChart.Constructor =
+  FlotChart
+
+}(window.jQuery),
+
+//initializing flotchart
+function($) {
+  "use strict";
+  $.FlotChart.init()
+}(window.jQuery);
+
+
+</script>
 {% endblock %}

@@ -20,6 +20,7 @@ class PropertyForm(FlaskForm):
                                         (str(PROPERTY_CONSTANTS.RETAIL), 'Retail')],
                             validators=[DataRequired()])
     units = IntegerField('# Units', validators=[Optional()])
+    property_tax = IntegerField('Property Tax', validators=[Optional()])
     sq_feet = IntegerField('Sq. Feet', validators=[Optional()])
     bedrooms = IntegerField('Bedrooms', validators=[Optional()])
     bathrooms = IntegerField('Bathrooms', validators=[Optional()])

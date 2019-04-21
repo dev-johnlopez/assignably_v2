@@ -391,7 +391,7 @@ function($) {
 
 $(document).ready(function() {
 
-	
+
 
 	//------------- Ordered bars chart -------------//
 	$(function() {
@@ -497,4 +497,3 @@ $(document).ready(function() {
 		$.plot($("#ordered-bars-chart"), ds, options);
 	});
 });
-

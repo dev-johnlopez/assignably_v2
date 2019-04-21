@@ -46,15 +46,19 @@
     </dl>
     <dl class="row">
       <dt class="col-4">Land Value (%)</dt>
-      <dd class="col-8">{{ proforma.land_value_perc|percent }}</dd>
+      <dd class="col-8">{{ proforma.getLandValuePercent()|percent }}</dd>
     </dl>
     <dl class="row">
       <dt class="col-4">Income Tax Rate</dt>
-      <dd class="col-8">{{ proforma.income_tax_rate|percent }}</dd>
+      <dd class="col-8">{{ proforma.getIncomeTaxRate()|percent }}</dd>
     </dl>
     <dl class="row">
       <dt class="col-4">Vacancy (%)</dt>
-      <dd class="col-8">{{ proforma.vacancy_perc|percent }}</dd>
+      <dd class="col-8">{{ proforma.getVacancyPercent()|percent }}</dd>
+    </dl>
+    <dl class="row">
+      <dt class="col-4">Appreciation Rate (%)</dt>
+      <dd class="col-8">{{ proforma.getAppreciationRate()|percent }}</dd>
     </dl>
   </div>
 </div>

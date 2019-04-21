@@ -1,6 +1,5 @@
 {% extends 'proformas/layout/template.html' %}
-{% set data_mask = 1 %}
-{% set active_page = "proforma" %}
+{% set active_page = "calculations" %}
 {% block content %}
 <!-- Page-Title -->
 <div class="row">
@@ -16,6 +15,257 @@
             <h4 class="page-title">{{ title }}</h4>
         </div>
     </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-lg-12">
+    <div class="card-box">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="text-dark  header-title m-t-0">Overall Analysis</h4>
+          <p class="text-muted m-b-25 font-13">
+              Projected incomes for this property
+          </p>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Income</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>10</th>
+                <th>15</th>
+                <th>20</th>
+                <th>25</th>
+                <th>30</th>
+                <th>35</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sale Price</td>
+                <td>{{ proforma.getSalePrice(1)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(2)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(3)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(4)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(5)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(10)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(15)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(20)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(25)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(30)|currency }}</p></td>
+                <td>{{ proforma.getSalePrice(35)|currency }}</p></td>
+              </tr>
+              <tr>
+                <td>Cumulative Cashflow</td>
+                <td>{{ proforma.getCumulativeCashflow(1)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(2)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(3)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(4)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(5)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(10)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(15)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(20)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(25)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(30)|currency }}</td>
+                <td>{{ proforma.getCumulativeCashflow(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>Cashflow after CapEx</td>
+                <td>{{ proforma.getCashflowAfterCapEx(1)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(2)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(3)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(4)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(5)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(10)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(15)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(20)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(25)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(30)|currency }}</td>
+                <td>{{ proforma.getCashflowAfterCapEx(35)|currency }}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Expenses</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>10</th>
+                <th>15</th>
+                <th>20</th>
+                <th>25</th>
+                <th>30</th>
+                <th>35</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for loan in proforma.loans %}
+                <tr>
+                  <td>Sale Price</td>
+                  <td>{{ loan.getLoanBalance(1)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(2)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(3)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(4)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(5)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(10)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(15)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(20)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(25)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(30)|currency }}</p></td>
+                  <td>{{ loan.getLoanBalance(35)|currency }}</p></td>
+                </tr>
+              {% endfor %}
+              <tr>
+                <td>Initial Investment</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+                <td>{{ proforma.getInvestedCash()|currency }}</td>
+              </tr>
+              <tr>
+                <td>Option Fee Credit</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+                <td>{{ proforma.lease_option_fee|currency }}</td>
+              </tr>
+              <tr>
+                <td>Sales Costs</td>
+                <td>{{ proforma.getSalesCosts(1)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(2)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(3)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(4)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(5)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(10)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(15)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(20)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(25)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(30)|currency }}</td>
+                <td>{{ proforma.getSalesCosts(35)|currency }}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Overall Return</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>10</th>
+                <th>15</th>
+                <th>20</th>
+                <th>25</th>
+                <th>30</th>
+                <th>35</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Profit</td>
+                <td>{{ proforma.getTotalProfit(1)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(2)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(3)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(4)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(5)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(10)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(15)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(20)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(25)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(30)|currency }}</td>
+                <td>{{ proforma.getTotalProfit(35)|currency }}</td>
+              </tr>
+              <tr>
+                <td>ROI</td>
+                <td>{{ proforma.getReturnOnInvestment(1)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(2)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(3)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(4)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(5)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(10)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(15)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(20)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(25)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(30)|percent }}</td>
+                <td>{{ proforma.getReturnOnInvestment(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Annualized ROI</td>
+                <td>{{ proforma.getAnnualizedROI(1)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(2)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(3)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(4)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(5)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(10)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(15)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(20)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(25)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(30)|percent }}</td>
+                <td>{{ proforma.getAnnualizedROI(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Compound ROI</td>
+                <td>{{ proforma.getCompoundROI(1)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(2)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(3)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(4)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(5)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(10)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(15)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(20)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(25)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(30)|percent }}</td>
+                <td>{{ proforma.getCompoundROI(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>IRR</td>
+                <td>{{ proforma.getIRR(1)|percent }}</td>
+                <td>{{ proforma.getIRR(2)|percent }}</td>
+                <td>{{ proforma.getIRR(3)|percent }}</td>
+                <td>{{ proforma.getIRR(4)|percent }}</td>
+                <td>{{ proforma.getIRR(5)|percent }}</td>
+                <td>{{ proforma.getIRR(10)|percent }}</td>
+                <td>{{ proforma.getIRR(15)|percent }}</td>
+                <td>{{ proforma.getIRR(20)|percent }}</td>
+                <td>{{ proforma.getIRR(25)|percent }}</td>
+                <td>{{ proforma.getIRR(30)|percent }}</td>
+                <td>{{ proforma.getIRR(35)|percent }}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row mt-3">
@@ -50,7 +300,7 @@
             <tbody>
               {% for line_item in proforma.income %}
                 <tr>
-                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc|percent }} Increase per year</td>
+                    <td>{{ line_item.type }}<br /><i>{{ line_item.getAnnualIncreasePerc()|percent }} Increase per year</td>
                     <td>{{ line_item.getAnnualizedAmount(1)|currency }}</td>
                     <td>{{ line_item.getAnnualizedAmount(2)|currency }}</td>
                     <td>{{ line_item.getAnnualizedAmount(3)|currency }}</td>
@@ -79,7 +329,7 @@
                 <td><b>{{ proforma.getGrossScheduledIncome(35)|currency }}</b></td>
               </tr>
               <tr>
-                <td>Vacancy Loss<br /><i>({{ proforma.vacancy_perc|percent }}% per year)</i></td>
+                <td>Vacancy Loss<br /><i>({{ proforma.getVacancyPercent()|percent }} per year)</i></td>
                 <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(1) * (proforma.vacancy_perc/100))|currency }})</p></td>
                 <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(2) * (proforma.vacancy_perc/100))|currency }})</p></td>
                 <td><p class="text-danger">({{ (proforma.getGrossScheduledIncome(3) * (proforma.vacancy_perc/100))|currency }})</p></td>
@@ -145,7 +395,7 @@
             <tbody>
               {% for line_item in proforma.expenses %}
                 <tr>
-                    <td>{{ line_item.type }}<br /><i>{{ line_item.annual_increase_perc|percent }} Increase per year</td>
+                    <td>{{ line_item.type }}<br /><i>{{ line_item.getAnnualIncreasePerc()|percent }} Increase per year</td>
                     <td><p class="text-danger">({{ line_item.getAnnualizedAmount(1)|currency }})</p></td>
                     <td><p class="text-danger">({{ line_item.getAnnualizedAmount(2)|currency }})</p></td>
                     <td><p class="text-danger">({{ line_item.getAnnualizedAmount(3)|currency }})</p></td>
@@ -175,31 +425,31 @@
               </tr>
               <tr>
                 <td><b>Operating Ratio</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(1)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(2)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(3)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(4)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(5)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(10)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(15)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(20)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(25)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(30)|percent_display }}</b></td>
-                <td><b>{{ proforma.getOperatingExpenseRatio(35)|percent_display }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(1)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(2)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(3)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(4)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(5)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(10)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(15)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(20)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(25)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(30)|percent }}</b></td>
+                <td><b>{{ proforma.getOperatingExpenseRatio(35)|percent }}</b></td>
               </tr>
               <tr>
                 <td><b>Break Even Ratio</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(1)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(2)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(3)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(4)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(5)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(10)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(15)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(20)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(25)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(30)|percent_display }}</b></td>
-                <td><b>{{ proforma.getBreakEvenRatio(35)|percent_display }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(1)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(2)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(3)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(4)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(5)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(10)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(15)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(20)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(25)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(30)|percent }}</b></td>
+                <td><b>{{ proforma.getBreakEvenRatio(35)|percent }}</b></td>
               </tr>
             </tbody>
         </table>
@@ -492,17 +742,31 @@
               </tr>
               <tr>
                 <td>Cap Rate</td>
-                <td>{{ proforma.getCapitalizationRate(1)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(2)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(3)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(4)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(5)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(10)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(15)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(20)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(25)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(30)|percent_display }}</td>
-                <td>{{ proforma.getCapitalizationRate(35)|percent_display }}</td>
+                <td>{{ proforma.getCapitalizationRate(1)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(2)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(3)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(4)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(5)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(10)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(15)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(20)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(25)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(30)|percent }}</td>
+                <td>{{ proforma.getCapitalizationRate(35)|percent }}</td>
+              </tr>
+              <tr>
+                <td>Operating Ratio</td>
+                <td>{{ proforma.getOperatingExpenseRatio(1)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(2)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(3)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(4)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(5)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(10)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(15)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(20)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(25)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(30)|percent }}</td>
+                <td>{{ proforma.getOperatingExpenseRatio(35)|percent }}</td>
               </tr>
             </tbody>
         </table>
