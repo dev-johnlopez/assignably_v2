@@ -1,9 +1,11 @@
 # Data Provider
 UNKNOWN = 0
 ZILLOW = 1
+HUD = 2
 PROVIDER_NAME = {
   UNKNOWN: 'Unknown',
-  ZILLOW: 'Zillow'
+  ZILLOW: 'Zillow',
+  HUD: 'HUD'
 }
 
 # Region Type
@@ -101,6 +103,7 @@ MEDIAN_RENT_LIST_PRICE_PER_SQFT_2BR = 74
 MEDIAN_RENT_LIST_PRICE_PER_SQFT_3BR = 75
 MEDIAN_RENT_LIST_PRICE_PER_SQFT_4BR = 76
 MEDIAN_RENT_LIST_PRICE_PER_SQFT_5BR_PLUS = 77
+FMR = 78
 DATASET_TYPE = {
     ZHVI_SUMMARY: 'ZHVI Summary (Current Month)',
     ZHVI_ALL_HOMES_TIME_SERIES: 'ZHVI All Homes (SFR, Condo/Co-op) Time Series ($)',
@@ -179,6 +182,7 @@ DATASET_TYPE = {
     MEDIAN_RENT_LIST_PRICE_PER_SQFT_2BR: 'Median Rent List Price ($ Per Sq. Foot), 2-Bedroom',
     MEDIAN_RENT_LIST_PRICE_PER_SQFT_3BR: 'Median Rent List Price ($ Per Sq. Foot), 3-Bedroom',
     MEDIAN_RENT_LIST_PRICE_PER_SQFT_4BR: 'Median Rent List Price ($ Per Sq. Foot), 4-Bedroom',
-    MEDIAN_RENT_LIST_PRICE_PER_SQFT_5BR_PLUS: 'Median Rent List Price ($ Per Sq. Foot), 5+ Bedroom'
+    MEDIAN_RENT_LIST_PRICE_PER_SQFT_5BR_PLUS: 'Median Rent List Price ($ Per Sq. Foot), 5+ Bedroom',
+    FMR: 'Fair Market Rents'
 
 }

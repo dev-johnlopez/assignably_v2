@@ -125,7 +125,16 @@
                                 <a href="{{ url_for('leads.all') }}"><i class="mdi mdi-account-multiple"></i>Leads</a>
                             </li>
                             <li class="has-submenu">
+                              {% if current_user.is_admin() %}
+                                <a href="#"><i class="mdi mdi-account-multiple"></i>Upload</a>
+                                <ul class="submenu">
+                                    <li><a href="{{ url_for('upload.index') }}">Properties</a></li>
+                                    <li><a href="{{ url_for('upload.dataset') }}">Dataset</a></li>
+                                    <li><a href="{{ url_for('upload.hud') }}">Fair Market Rent</a></li>
+                                </ul>
+                              {% else %}
                                 <a href="{{ url_for('upload.index') }}"><i class="mdi mdi-account-multiple"></i>Upload</a>
+                              {% endif %}
                             </li>
                             {% if current_user.is_admin() %}
                             <li class="has-submenu">

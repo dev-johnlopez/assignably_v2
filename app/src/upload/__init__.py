@@ -53,7 +53,7 @@ def validDataFrame(df, headers):
     return pd.Series(headers).isin(df).any()
 
 def readExcel(fileData, user):
-    df = pd.read_excel(fileData, sheet_name=0)
+    df = pd.read_csv(fileData)#, sheet_name=0)
     df1 = df.replace(np.nan, '', regex=True)
     df2 = df1.replace({r'[^\x00-\x7F]+':''}, regex=True)
     return df2

@@ -1,0 +1,17 @@
+{% extends 'layouts/backend/template.html' %}
+{% block content %}
+{% include 'layouts/backend/common/flash_messages.html' %}
+
+{% include 'upload/forms/dataset_form.html' %}
+
+
+{% for error in form.errors %}
+<div class="row-fluid mt-3">
+  <div class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      {{ error }}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

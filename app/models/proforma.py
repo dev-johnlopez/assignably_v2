@@ -25,8 +25,8 @@ class Proforma(db.Model, AuditMixin):
     vacancy_perc = db.Column(db.Numeric(precision=5,scale=2))
     sales_commission_rate = db.Column(db.Numeric(precision=5,scale=2))
     loans = db.relationship('Loan')
-    income = db.relationship('LineItem', foreign_keys="[LineItem.income_proforma_id]")
-    expenses = db.relationship('LineItem', foreign_keys="[LineItem.expense_proforma_id]")
+    income = db.relationship('LineItem', foreign_keys="[LineItem.income_proforma_id]", back_populates="income_proforma")
+    expenses = db.relationship('LineItem', foreign_keys="[LineItem.expense_proforma_id]", back_populates="expense_proforma")
     capital_expenditures = db.relationship('CapitalExpenditure')
 
     def addIncomeLineItem(self, line_item):
@@ -310,7 +310,9 @@ class LineItem(db.Model, AuditMixin):
     __tablename__ = "line_item"
     id = db.Column(db.Integer, primary_key=True)
     income_proforma_id = db.Column(db.Integer, db.ForeignKey('proforma.id'))
+    income_proforma = db.relationship("Proforma", back_populates='income', foreign_keys="[LineItem.income_proforma_id]")
     expense_proforma_id = db.Column(db.Integer, db.ForeignKey('proforma.id'))
+    expense_proforma = db.relationship("Proforma", back_populates='expenses', foreign_keys="[LineItem.expense_proforma_id]")
     type = db.Column(db.String(255))
     amount = db.Column(db.Integer, default=0)
     amount_type = db.Column(db.String(50))
@@ -324,7 +326,7 @@ class LineItem(db.Model, AuditMixin):
         return self.amount
 
     def getAnnualizedAmount(self, year=None):
-        principal = self.amount * self.frequency
+        principal = self.getAmount() * self.frequency
         if year is None:
             return principal
         rate = 0
@@ -336,10 +338,10 @@ class LineItem(db.Model, AuditMixin):
         return self.annual_increase_perc / 100
 
     def getProforma(self):
-        if self.income_proforma_id is not None:
-            return Proforma.query.get(self.income_proforma_id)
+        if self.income_proforma is not None:
+            return self.income_proforma
         else:
-            return Proforma.query.get(self.expense_proforma_id)
+            return self.expense_proforma
 
     __mapper_args__ = {
         'polymorphic_identity':'Fixed',
@@ -354,7 +356,7 @@ class PercentLineItem(LineItem):
     }
 
     def getAnnualizedAmount(self, year=None):
-        return self.getAmount(year)
+        return self.getAmount(year) * self.frequency
 
     def getAmount(self, year=None):
         return self.amount * self.getProforma().getGrossScheduledIncome(year) / 100

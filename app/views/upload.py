@@ -16,16 +16,30 @@ def before_request():
 @bp.route('/', methods=['GET','POST'])
 @login_required
 def index():
-    upload_form = UploadForm()
-    #dataset_form = DatasetUploadForm()
-    if upload_form.validate_on_submit():
-        data_frame = readExcel(upload_form.file.data, current_user)
+    form = UploadForm()
+    if form.validate_on_submit():
+        data_frame = readExcel(form.file.data, current_user)
         current_user.launch_task('import_leads', 'Importing Leads', user_id=current_user.id, data_frame=data_frame)
         #upload_leads(form.file.data, current_user)
         db.session.commit()
-    #if dataset_form.validate_on_submit():
-    #    data_frame = readExcel(dataset_form.file.data, current_user)
-    #    current_user.launch_task('update_dataset', 'Importing {}'.format(DATASET_CONSTANTS.DATASET_TYPE[int(dataset_form.dataset_type.data)]), data_frame=data_frame, dataset_type=dataset_form.dataset_type.data, region_type=dataset_form.region_type.data, provider=dataset_form.provider.data)
-        #upload_leads(form.file.data, current_user)
-    #    db.session.commit()
-    return render_template('upload/index.html', title='Upload', upload_form=upload_form)#, dataset_form=dataset_form)
+    return render_template('upload/index.html', title='Upload', form=form)#, dataset_form=dataset_form)
+
+@bp.route('/dataset', methods=['GET','POST'])
+@login_required
+def dataset():
+    form = DatasetUploadForm()
+    if form.validate_on_submit():
+        data_frame = readExcel(form.file.data, current_user)
+        current_user.launch_task('update_dataset', 'Importing {}'.format(DATASET_CONSTANTS.DATASET_TYPE[int(form.dataset_type.data)]), data_frame=data_frame, dataset_type=form.dataset_type.data, region_type=form.region_type.data, provider=form.provider.data)
+        db.session.commit()
+    return render_template('upload/dataset.html', title='Upload', form=form)#, dataset_form=dataset_form)
+
+@bp.route('/hud', methods=['GET','POST'])
+@login_required
+def hud():
+    form = UploadForm()
+    if form.validate_on_submit():
+        data_frame = readExcel(form.file.data, current_user)
+        current_user.launch_task('import_hud', 'Importing FMR', data_frame=data_frame)
+        db.session.commit()
+    return render_template('upload/index.html', title='Upload', form=form)

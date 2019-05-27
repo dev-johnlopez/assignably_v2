@@ -6,6 +6,7 @@ load_dotenv(os.path.join(basedir, '.flaskenv'))
 
 class Config(object):
     DEBUG = os.environ.get('FLASK_DEBUG') or False
+    SENDGRID_API_KEY=os.environ.get('SENDGRID_API_KEY')
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     POSTS_PER_PAGE = int(os.environ.get('POSTS_PER_PAGE'))
     SECRET_KEY = os.environ.get('SECRET_KEY')

@@ -7,6 +7,7 @@ from app.models.user import User
 from app.models.market import Market, DataPoint
 from app.src.upload import validDataFrame, listsource_headers, processRow
 from app.src.upload.datasets import mapMarket
+from app.src.upload.fmr import mapRecord
 from flask import current_app, g
 from flask_security import current_user
 
@@ -54,6 +55,25 @@ def update_dataset(data_frame, dataset_type, region_type, provider):
         for index, row in data_frame.iterrows():
             market = mapMarket(data_frame, row, dataset_type, region_type)
             db.session.add(market)
+            _set_task_progress(100 * (index + 1) // total_rows)
+
+        user.add_notification('dataset_upload_complete', None)
+        db.session.commit()
+        _set_task_progress(100)
+    except:
+        _set_task_progress(100)
+        app.logger.error('Unhandled exception', exc_info=sys.exc_info())
+
+def import_hud(data_frame):
+    try:
+        job = get_current_job()
+        task = Task.query.get(job.get_id())
+        user = task.user
+        _set_task_progress(0)
+        total_rows = len(data_frame.index)
+        for index, row in data_frame.iterrows():
+            fmr = mapRecord(data_frame, row)
+            db.session.add(fmr)
             _set_task_progress(100 * (index + 1) // total_rows)
 
         user.add_notification('dataset_upload_complete', None)

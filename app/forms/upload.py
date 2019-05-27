@@ -14,10 +14,13 @@ class DatasetUploadForm(UploadForm):
     provider = SelectField('Provider Type', choices=[
                                         ('', ''),
                                         (str(DATASET_CONSTANTS.UNKNOWN), 'Unknown'),
-                                        (str(DATASET_CONSTANTS.ZILLOW), 'Zillow')],
+                                        (str(DATASET_CONSTANTS.ZILLOW), 'Zillow'),
+                                        (str(DATASET_CONSTANTS.HUD), 'HUD')],
                             validators=[DataRequired()])
     dataset_type = SelectField('Dataset Type', choices=[
                                         ('', ''),
+                                        (str(DATASET_CONSTANTS.FMR), 'Fair Market Rents'),
+                                        (str(DATASET_CONSTANTS.MEDIAN_RENT_LIST_PRICE_3BR), '3BR Median Rents'),
                                         (str(DATASET_CONSTANTS.PRICE_TO_RENT_RATIO), 'Price To Rent Ratio'),
                                         (str(DATASET_CONSTANTS.MEDIAN_RENT_LIST_PRICE_NON_MULTI), 'Median Rent List Price ($), SFR, Condo/Co-op')],
                             validators=[DataRequired()])
