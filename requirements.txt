@@ -73,7 +73,7 @@ transitions==0.6.8
 uritemplate==3.0.0
 urllib3==1.23
 URLObject==2.4.3
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.2.1
 xlrd==1.1.0
 XlsxWriter==1.1.1
